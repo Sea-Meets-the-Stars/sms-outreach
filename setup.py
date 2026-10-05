@@ -22,7 +22,9 @@ setup_keywords['provides'] = [setup_keywords['name']]
 setup_keywords['python_requires'] = '>=3.12'
 setup_keywords['install_requires'] = [
     'numpy', 'scipy', 'pandas', 'matplotlib', 'seaborn',
-    'tqdm', 'IPython']
+    'tqdm', 'IPython',
+    # Slide generation (PowerPoint, converted with LibreOffice)
+    'python-pptx']
 setup_keywords['zip_safe'] = False
 setup_keywords['packages'] = find_packages()
 

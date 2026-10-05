@@ -37,17 +37,17 @@ This repository will hold the outreach materials and code for Sea Meets the Star
 ## Q&A
 
 1. **Is a Python package the right shape for this repo?**  I followed the house layout (`sms_outreach/` package, `setup.py`, `requirements.txt`, `pytest.ini`), but `claude_prompts/wmko_2026.md` suggests the main products are talks.  Would you like a talk-oriented layout on top of it, e.g. `talks/wmko_2026/{figures,scripts,slides}/`, with the package holding only shared plotting/figure code?
-   - A:
+   - A: Yes, a Python repo is fine.  We will write plenty of code
 2. **What format will the slides be in?**  (Keynote, PowerPoint, Google Slides, LaTeX/Beamer, reveal.js, ...)  This decides whether we need extra dependencies or build tooling.
-   - A:
+   - A: I will present with Google Slides, but you will likely generate Powerpoint with LibreOffice.
 3. **Which domain packages should be dependencies?**  I kept only the core scientific stack.  Candidates: `astropy` (astronomy figures), `xarray`/`h5netcdf` (ocean data), `cartopy` (maps).
-   - A:
+   - A: Core is fine for now
 4. **WebFetch allowlist.**  The IOPtics domains (Optica, Wiley, doi.org, Taylor & Francis) are aimed at checking the ocean-optics literature.  For outreach it may be more useful to allow image/press sites (e.g. NASA, ESA, NOAA, Wikimedia Commons).  Add them?
-   - A:
+   - A: Yes, add NASA, ESA, NOAA, Wikimedia Commons.
 5. **Outreach siblings.**  `~/Projects` has other non-research repos (e.g. `why-science-isnt-hard`, `star-island`).  Should future setup tasks follow those rather than `Oceanography/python`?
-   - A:
+   - A: No
 6. **Goals line.**  "This repository will hold the outreach materials and code for Sea Meets the Stars" was inferred from the README.  Please correct it if needed.
-   - A:
+   - A: That's fine
 
 ## Logging
 
@@ -74,3 +74,13 @@ The "Logs" section will record Claude's work.  Please use the following format:
 *settings.json suggestion.*  All five siblings with a `settings.json` (OETHER, victor-class, PAB, retrieve-or-bust, cugn-climatology) have the same `deny`/`ask` policy; they differ only in their `allow` lists.  I recommend the trimmed IOPtics copy now in place.  victor-class has the same publisher domains.  retrieve-or-bust adds GitHub and Crossref `WebFetch`, which would be the one to borrow from if you want those.  See Q&A #4 about adding outreach-oriented domains instead.
 
 *What I learned.*  The repo's remote is `Sea-Meets-the-Stars/sms-outreach`, the same GitHub org as OETHER and cugn-climatology.  Unlike its siblings it lives in `~/Projects`, not `~/Oceanography/python`.  A second prompt doc, `claude_prompts/wmko_2026.md` (a 45-minute WMKO 2026 public talk), was in progress, so this repo is mainly about talks; open questions about layout are in the Q&A section.  No git commands were run.
+
+### 2026-10-05 (Acted on Q&A answers)
+
+- **Q1 (layout):** Kept the Python package and added the talk layout `talks/wmko_2026/{figures,scripts,slides}/`.  Each folder has a `.gitkeep` so git tracks it while empty.  The layout is described in `CLAUDE.md`.
+- **Q2 (slides):** Added `python-pptx` to `requirements.txt` and `setup.py`.  It is slide tooling, not a domain package, so it doesn't go against the Q3 answer.  I allowed `Bash(soffice:*)` in `.claude/settings.json` and added a "Slides" section to `CLAUDE.md`: generate `.pptx` into `talks/<talk>/slides/`, render or check it with LibreOffice, and the user imports it into Google Slides.  Checked: `python-pptx` 1.0.2 is already in `ocean14`, and `soffice` (`/opt/homebrew/bin/soffice`) converted a test `.pptx` to PDF.
+- **Q3 (dependencies):** No change; core stack only.
+- **Q4 (WebFetch):** Added NASA (www, science, images, images-api, svs.gsfc, earthobservatory, apod), ESA (www.esa.int, esahubble.org, esawebb.org), NOAA (www, oceanservice, oceanexplorer) and Wikimedia Commons (commons, upload).  I listed hosts one by one rather than using wildcards; add more as other subdomains come up.
+- **Q5, Q6:** No change.  Future setup follows `Oceanography/python`, and the Goals line stays as it is.
+
+No git commands were run.

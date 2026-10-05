@@ -11,3 +11,6 @@ seaborn
 tqdm
 IPython
 pytest
+
+# Slide generation (PowerPoint, converted with LibreOffice)
+python-pptx
