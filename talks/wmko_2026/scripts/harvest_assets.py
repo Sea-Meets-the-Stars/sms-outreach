@@ -45,6 +45,7 @@ HINZ = REPO / "context/Integrating Claude into instrumentation research.pptx"
 CI_FIGS = HOME / "Projects/ClimateIntelligence/presentations/2026_WMKO/figs"
 EXO = HOME / "Projects/PypeIt/first-hires-exoplanet"
 UA = "Mozilla/5.0 (sms-outreach harvest_assets; jxp@ucsc.edu)"
+MAX_SIDE = 2400                # stored images are capped at this many pixels
 
 
 @dataclass
@@ -83,7 +84,127 @@ class Asset:
 
 # ----------------------------------------------------------------- ASSETS
 # Filled from the B2 survey of each deck / repo / web page (see the log).
+# "check" in a credit/license marks an origin we could not confirm.
+UNKNOWN = "unknown — check"
+OWN = "own work"
+ARXIV = "arXiv.org perpetual non-exclusive license (authors retain copyright); reused with attribution by a co-author"
+
 ASSETS = {
+    # --- Kraw 2024 lecture -------------------------------------------------------------
+    "kraw_sea_unknown.jpg": Asset(Picture(KRAW, 2, 0), "Sunset over the Pacific (Kraw 2024 slide 2, left)",
+                                  credit="J. X. Prochaska? — check", license=UNKNOWN,
+                                  crop=(0.38, 0.46, 1.0, 1.0)),
+    "kraw_sky_unknown.jpg": Asset(Picture(KRAW, 2, 1), "JWST's First Deep Field, SMACS 0723 (Kraw 2024 slide 2, right)",
+                                  credit="NASA, ESA, CSA, STScI", license="public domain (NASA)",
+                                  crop=(0.0, 0.0, 0.60, 1.0)),
+    "kraw_cats_dogs.jpg": Asset(Picture(KRAW, 14, 0), "AI 2012: three dogs and two cats (Kraw 2024 slide 14)",
+                                credit="stock photo — check", license=UNKNOWN),
+    "kraw_parks_cnn.png": Asset(Picture(KRAW, 19, 1),
+                                "Lick quasar spectrum Q2138-4427 with a damped Lyα absorber, the kind of data "
+                                "Parks et al. 2018 fed to a CNN (Kraw 2024 slide 19)",
+                                credit="J. X. Prochaska (Lick 3-m data)", license=OWN),
+    "ulmo_outliers.png": Asset(Picture(KRAW, 31, 1), "Ulmo: nine SST outlier cutouts (Kraw 2024 slide 31)",
+                               credit="Prochaska, Cornillon & Reiman 2021 (Ulmo)", license=OWN,
+                               crop=(0.115, 0.11, 0.905, 0.895)),
+    # --- MBARI 2026 talk ---------------------------------------------------------------
+    "dots.png": Asset(Picture(MBARI, 13, 0), "Dots: a regular grid (MBARI 2026 slide 13)",
+                      credit="web image — check (trivial to regenerate)", license=UNKNOWN),
+    "squiggles.png": Asset(Picture(MBARI, 13, 1), "Squiggles: a Turing-pattern labyrinth (MBARI 2026 slide 13)",
+                           credit="web image — check", license=UNKNOWN),
+    "sst_cutout.png": Asset(Picture(MBARI, 14, 2), "VIIRS SST cutout off California (MBARI 2026 slide 14)",
+                            credit="NOAA VIIRS SST; plot via J. X. Prochaska, MBARI 2026", license="NOAA data public domain"),
+    "cmb_sky.png": Asset(SlideImage(MBARI, 14, dpi=300), "Planck CMB map over a starry night sky (MBARI 2026 slide 14, rendered)",
+                         credit="ESA and the Planck Collaboration; night-sky photo — check",
+                         license="ESA Standard Licence (credit required); sky photo unknown — check",
+                         crop=(0.008, 0.169, 0.474, 0.926)),
+    "mbari_cnn.png": Asset(Picture(MBARI, 3, 1), "VGG-16 convolutional neural network diagram (MBARI 2026 slide 3)",
+                           credit="after D. Frossard 2016, 'VGG in TensorFlow' — check", license=UNKNOWN),
+    "nenya_umap.png": Asset(Picture(MBARI, 24, 0), "Nenya: UMAP of the VIIRS SST manifold (MBARI 2026 slide 24)",
+                            credit="J. X. Prochaska et al. (Nenya)", license=OWN),
+    "enki_reconstruction.png": Asset(Picture(MBARI, 33, 0),
+                                     "Enki: original / masked / reconstructed / residual SST (MBARI 2026 slide 33)",
+                                     credit="Agabin, Prochaska et al. 2024 (Enki)", license=OWN),
+    "ulmo_alt.png": Asset(Picture(MBARI, 5, 0), "Ulmo: SST outlier cutouts (MBARI 2026 slide 5)",
+                          credit="J. X. Prochaska et al. (Ulmo)", license=OWN, crop=(0.11, 0.10, 0.91, 0.91)),
+    "launch_art.png": Asset(Picture(MBARI, 6, 0), "Butterflies forming a '5': Claude launch art (MBARI 2026 slide 6)",
+                            credit="Anthropic — check", license="Anthropic copyright; editorial use in a talk — check"),
+    "pab_infographic.png": Asset(Picture(MBARI, 40, 0), "PAB: PACE satellite x BGC-Argo floats (MBARI 2026 slide 40)",
+                                 credit="J. X. Prochaska & Claude (PAB)", license=OWN),
+    "team_ai_remote_sensing.png": Asset(SlideImage(MBARI, 4), "'AI on Remote Sensing' team (MBARI 2026 slide 4, rendered)",
+                                        credit="team members' photos", license="as used in MBARI 2026",
+                                        crop=(0.0, 0.095, 1.0, 1.0)),
+    # --- Honokaʻa High School 2026 -------------------------------------------------------
+    "login_card.jpg": Asset(Picture(HONO, 2, 0), "Keck Observer Portal 'Your Information' card with a 1990s headshot "
+                                                 "(Honokaʻa 2026 slide 2)",
+                            credit="J. X. Prochaska (screenshot)", license=OWN, crop=(0.0, 0.23, 1.0, 0.86)),
+    "keck_domes.jpg": Asset(Picture(HONO, 3, 0), "Keck I and II domes on Maunakea (Honokaʻa 2026 slide 3)",
+                            credit="W. M. Keck Observatory? — check", license=UNKNOWN),
+    # --- rendered slides ---------------------------------------------------------------
+    "hinz_slumping.png": Asset(SlideImage(HINZ, 2), "Phil Hinz: 'Developing a viscous model for glass slumping' (KASM)",
+                               credit="Phil Hinz (UCSC)", license="used with permission"),
+    "exo_public_1.png": Asset(SlideImage(EXO / "docs/slides/public_summary.pptx", 1),
+                              "'You could do most of this yourself' (first-hires-exoplanet)",
+                              credit="J. X. Prochaska & Claude", license=OWN),
+    "exo_public_2.png": Asset(SlideImage(EXO / "docs/slides/public_summary.pptx", 2),
+                              "'A teacher could lead a class through it' (first-hires-exoplanet)",
+                              credit="J. X. Prochaska & Claude", license=OWN),
+    # --- files from other repos ----------------------------------------------------------
+    "sacbee.png": Asset(File(HOME / "Projects/ClimateIntelligence/presentations/2026_WMKO/sacbee.png"),
+                        "'California professor: AI surpassed me as a scientist. What now?', Sacramento Bee, 21 Aug 2026",
+                        credit="J. X. Prochaska, The Sacramento Bee; photo Dado Ruvic/Reuters",
+                        license="author's op-ed (screenshot); Reuters photo not ours"),
+    "a2_bio_uplift.png": Asset(File(CI_FIGS / "a2_bio_uplift.png"), "AI uplift on biology tasks, 2024–2026",
+                               credit="JXP & Claude; data: RAND 2024, OpenAI 2024, Anthropic 2025, Zhang+ 2026, "
+                                      "Götting+ 2025", license=OWN),
+    "a3_hacking.png": Asset(File(CI_FIGS / "a3_hacking.png"), "Claude Mythos Preview and the Hugging Face break-in",
+                            credit="JXP & Claude; Scientific American & Axios, Apr 2026; CNBC, Jul 2026", license=OWN),
+    "a5_arxiv.png": Asset(File(CI_FIGS / "a5_arxiv.png"), "New arXiv submissions per month, 1991–2026",
+                          credit="JXP & Claude; data: arXiv stats, arXiv blog 1 Oct 2026", license=OWN),
+    "a6_proposals.png": Asset(File(CI_FIGS / "a6_proposals.png"), "Fifteen 'Excellent' proposals, one funded",
+                              credit="JXP & Claude", license=OWN),
+    "s4_senses.png": Asset(File(CI_FIGS / "s4_senses.png"), "Our senses: eyes, ears, nose, skin",
+                           credit="JXP & Claude; Hecht+ 1942, USGS, Skedung+ 2013", license=OWN),
+    "hires.jpg": Asset(File(CI_FIGS / "images/hires.jpg"), "HIRES spectrometer, Keck I",
+                       credit="Courtesy W. M. Keck Observatory",
+                       license="WMKO permission for this talk (Q8)"),
+    "keck_primary.jpg": Asset(File(CI_FIGS / "images/keck_primary.jpg"), "Keck segmented primary mirror",
+                              credit="z2amiller / Wikimedia Commons", license="CC BY-SA 2.0"),
+    "loc_over_time.png": Asset(File(HOME / "bin/reports/figs/loc_over_time.png"),
+                               "Lines of code written by J. X. Prochaska, 1995–2026",
+                               credit="JXP & Claude (~/bin/reports/x_lines_of_code.md)", license=OWN),
+    "fig7_three_ways.png": Asset(File(EXO / "docs/figs/fig7_three_ways.png"),
+                                 "HD 187123 b three ways: lamp, iodine + open software, modern pipeline",
+                                 credit="JXP & Claude; right panel data Teklu et al. 2025", license=OWN),
+    "holy_grail_arc.png": Asset(File(HOME / "Projects/PypeIt/the-holy-grail/PR/pr_figure_2panels.png"),
+                                "A thorium-argon arc before and after blind wavelength calibration",
+                                credit="JXP & Claude; APF/Lick Observatory data; PypeIt", license=OWN),
+    "fig01_inverse_problem.png": Asset(File(HOME / "Projects/claudes-phd-thesis/reports/figures/fig01_inverse_problem.png"),
+                                       "Claude's PhD: one ocean-colour spectrum in, five constituent spectra out",
+                                       credit="Claude (candidate) & JXP; Loisel et al. 2023 synthetic data", license=OWN),
+    "ai_da_timeline.png": Asset(File(HOME / "Projects/BOONUS/reports/data_assimilation/figs/ai_da_timeline.png"),
+                                "AI in data assimilation, 2018–2026: weather vs ocean",
+                                credit="JXP & Claude (BOONUS)", license=OWN),
+    "llc4320_sst.png": Asset(File(HOME / "Oceanography/python/wrangler/docs/slides/figs/llc4320_v2_sst_gulfstream.png"),
+                             "LLC4320 virtual ocean: Gulf Stream sea-surface temperature at ~2 km",
+                             credit="JXP & Claude (wrangler); LLC4320 MITgcm, NASA/JPL ECCO (Menemenlis et al.)",
+                             license="own figure; NASA data"),
+    # --- downloads -----------------------------------------------------------------------
+    "wolfe_disk.jpg": Asset(Url("https://public.nrao.edu/wp-content/uploads/2020/04/"
+                                "nrao20in04_WolfeDisk_illustration_SD.jpg"),
+                            "Artist's impression of the Wolfe Disk (Neeleman et al. 2020, Nature)",
+                            credit="NRAO/AUI/NSF, S. Dagnello", license="CC BY 4.0 (NRAO media resources)"),
+    "frb_jwst_nircam.png": Asset(Url("https://arxiv.org/html/2508.01648v1/nircam.png"),
+                                 "JWST/NIRCam view of the host of FRB 20240304B, z = 2.148 (Caleb et al., Fig. 2A-B)",
+                                 credit="Caleb et al. 2025 (arXiv:2508.01648); NASA, ESA, CSA, JWST", license=ARXIV,
+                                 crop=(0.0, 0.0, 1.0, 0.38)),
+    "frb_keck_lris.png": Asset(Url("https://arxiv.org/html/2508.01648v1/FRB20240304_LRIS_R-band.png"),
+                               "Keck/LRIS R-band image at the FRB 20240304B position: no host (Caleb et al., Fig. S5)",
+                               credit="Caleb et al. 2025; Keck I/LRIS program U299 (PI Prochaska)", license=ARXIV),
+    "lick_observatory.jpg": Asset(Url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/"
+                                      "Mt_Hamilton_and_Lick_Observatory_%285265825018%29.jpg/"
+                                      "1920px-Mt_Hamilton_and_Lick_Observatory_%285265825018%29.jpg"),
+                                  "Lick Observatory on Mt Hamilton after a snowfall, 15 Dec 2010",
+                                  credit="Jitze Couperus / Wikimedia Commons", license="CC BY 2.0"),
 }
 
 
@@ -138,8 +259,13 @@ def render_slide(src):
     if not pdf.exists():
         subprocess.run(["soffice", "--headless", "--convert-to", "pdf", "--outdir", str(CACHE), str(src.pptx)],
                        check=True, capture_output=True)
+    # LibreOffice skips hidden slides, so map the slide number to its PDF page
+    slides = list(open_deck(src.pptx).slides)
+    if slides[src.slide - 1]._element.get("show") == "0":
+        raise ValueError(f"{src.pptx.name} slide {src.slide} is hidden (not in the PDF)")
+    page = sum(s._element.get("show") != "0" for s in slides[:src.slide])
     stem = CACHE / f"{src.pptx.stem}_s{src.slide}"
-    subprocess.run(["pdftoppm", "-r", str(src.dpi), "-f", str(src.slide), "-l", str(src.slide), "-png",
+    subprocess.run(["pdftoppm", "-r", str(src.dpi), "-f", str(page), "-l", str(page), "-png",
                     "-singlefile", str(pdf), str(stem)], check=True)
     return Path(str(stem) + ".png").read_bytes(), "png"
 
@@ -175,6 +301,7 @@ def write_image(name, data, crop):
         l, t, r, b = crop
         w, h = im.size
         im = im.crop((round(l * w), round(t * h), round(r * w), round(b * h)))
+    im.thumbnail((MAX_SIDE, MAX_SIDE))     # keep the repo small; slides need far less
     if out.suffix.lower() in (".jpg", ".jpeg"):
         im.convert("RGB").save(out, quality=92)
     else:
