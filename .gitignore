@@ -6,6 +6,12 @@ __pycache__/
 # C extensions
 *.so
 
+# Avoid PDFs
+*.pdf
+
+# Avoid pptx
+*.pptx
+
 # Distribution / packaging
 .Python
 build/
@@ -221,3 +227,6 @@ __marimo__/
 
 # Claude Code (machine-local settings)
 .claude/settings.local.json
+
+# Rendered slide pages (quick visual checks)
+talks/*/slides/*_pages/

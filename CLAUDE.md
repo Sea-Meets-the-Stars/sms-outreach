@@ -22,6 +22,8 @@ This repository holds the outreach materials and code for Sea Meets the Stars
 
 Talks are presented with Google Slides.  Generate slides as PowerPoint (`.pptx`, e.g. with `python-pptx`) in the talk's `slides/` directory; use LibreOffice (`soffice --headless --convert-to pdf ...`) to convert or render them for checking.  The user imports the `.pptx` into Google Slides.
 
+Decks are built with `sms_outreach/slides/` on the Kraw_2024 master (Roboto, sea on the left / stars on the right).  Each talk has one plan file listing every slide, e.g. `conda run -n ocean14 python -m sms_outreach.slides.build talks/wmko_2026/slides/plan.py --png`.  Missing figures show as red PLACEHOLDER boxes, and the build runs QA (`--strict` for the final deck).
+
 ## Prompt docs
 
 Task instructions live in `claude_prompts/` (start with `start_up.md`). When pointed at a prompt doc, read it and execute only the numbered task requested, then record the work under that doc's `## Logs` section.

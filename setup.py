@@ -27,6 +27,7 @@ setup_keywords['install_requires'] = [
     'python-pptx']
 setup_keywords['zip_safe'] = False
 setup_keywords['packages'] = find_packages()
+setup_keywords['package_data'] = {'sms_outreach.slides': ['data/*.ttf']}
 
 if os.path.isdir('bin'):
     setup_keywords['scripts'] = [fname for fname in glob.glob(os.path.join('bin', '*'))
