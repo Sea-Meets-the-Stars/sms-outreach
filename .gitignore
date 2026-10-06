@@ -230,3 +230,4 @@ __marimo__/
 
 # Rendered slide pages (quick visual checks)
 talks/*/slides/*_pages/
+talks/*/figures/.cache/
