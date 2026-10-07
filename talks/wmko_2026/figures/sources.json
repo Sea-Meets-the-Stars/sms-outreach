@@ -341,5 +341,10 @@
     "slide": "AI needs data",
     "source": "Schematic: J. X. Prochaska & Claude",
     "origin": "generated"
+  },
+  "hinz_public.png": {
+    "slide": "WMKO + AI: building new optics",
+    "source": "After Phil Hinz (UCSC): Claude's glass-slumping model for KASM; illustration, not to scale",
+    "origin": "generated"
   }
 }
