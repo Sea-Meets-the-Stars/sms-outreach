@@ -22,27 +22,27 @@ from pathlib import Path
 from PIL import ImageFont
 
 SLIDE_W, SLIDE_H = 10.0, 5.625
-EDGE = 0.4
+EDGE = 0.25                 # side margin (images lead: B7)
 X0, X1 = EDGE, SLIDE_W - EDGE
 
 TITLE_PT = 38
 TITLE_MIN_PT = 30
 TITLE_TEXT_W = 9.3          # 9.75" box minus insets, minus a little slack
-SUBLINE_TOP = 4.48
+SUBLINE_TOP = 4.62           # Kraw puts its sub-line at 4.48; moved down to give images room (B7)
 SUBLINE_PT = 25
-CONTENT_GAP = 0.08
+CONTENT_GAP = 0.04
 
 SRC_X, SRC_W = 1.95, 7.2    # right of the logo, left of the slide number
-SRC_TOP, SRC_H = 5.17, 0.27
-SRC_MAX_PT, SRC_MIN_PT = 14, 9
+SRC_TOP, SRC_H = 5.30, 0.15  # in the logo row
+SRC_MAX_PT, SRC_MIN_PT = 7, 5  # credits are deliberately tiny (B7)
 BOTTOM_LIMIT = 5.45         # nothing we place may extend below this
 
-CAPTION_H = 0.42            # pair captions (Roboto 18 pt)
-CAPTION_PT = 18
+CAPTION_H = 0.36            # pair captions (Roboto 16 pt)
+CAPTION_PT = 16
 BULLET_PT = 28              # bullets alone on a slide
-BULLET_SIDE_PT = 20         # bullets beside a figure
-PAIR_GAP = 0.25
-FIG_BULLET_SPLIT = 0.58     # figure width fraction when a figure shares the slide with bullets
+BULLET_SIDE_PT = 18         # bullets beside a figure
+PAIR_GAP = 0.15
+FIG_BULLET_SPLIT = 0.66     # figure width fraction when a figure shares the slide with bullets
 
 ROBOTO = Path(__file__).resolve().parent / "data" / "Roboto.ttf"
 _FONTS = {}
@@ -77,7 +77,7 @@ def title_bottom(title):
     pt, lines = title_size(title)
     if lines == 0:
         return EDGE
-    return 0.02 + 0.1 + lines * pt * 1.2 / 72 + 0.1
+    return 0.02 + 0.1 + lines * pt * 1.2 / 72 + 0.04
 
 
 def source_size(source):
@@ -187,6 +187,10 @@ def content_boxes(title, has_subtitle, aspects, n_bullets=0, captions=()):
             bx = X0 + cell_w + PAIR_GAP
             out["bullets"] = (bx, top, X1 - bx, bottom - top)
     else:
+        if n_bullets:       # a band of (one-line) bullets on top, the pair below
+            band_h = n_bullets * BULLET_SIDE_PT * BULLET_LEADING / 72 + 0.1
+            out["bullets"] = (X0 + 0.3, top, X1 - X0 - 0.6, band_h)
+            top += band_h + 0.1
         cell_w = (X1 - X0 - PAIR_GAP) / 2
         cells = [(X0, top, cell_w, bottom - top), (X0 + cell_w + PAIR_GAP, top, cell_w, bottom - top)]
     any_caption = any(captions)

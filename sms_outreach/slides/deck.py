@@ -302,7 +302,7 @@ def fill_content_slide(slide, spec, fig_dirs, cache_dir):
                 add_text(slide, fig.caption, cap_box, L.CAPTION_PT, INK, "Caption", align=PP_ALIGN.CENTER)
     if boxes["bullets"]:
         max_pt = L.BULLET_SIDE_PT if spec.figures or spec.placeholder else L.BULLET_PT
-        lines = [f"• {b}" for b in spec.bullets]
+        lines = list(spec.bullets) if spec.plain else [f"• {b}" for b in spec.bullets]
         pt = L.bullet_size(lines, boxes["bullets"], max_pt)
         if pt is None:      # too much text: build anyway at the minimum; qa reports the overflow
             pt = L.BULLET_MIN_PT
@@ -361,7 +361,8 @@ def build_deck(template, slides, fig_dirs, cache_dir=None):
             if spec.kind == DIVIDER:
                 box.top = Inches(DIVIDER_TOP)
         if spec.subtitle and spec.kind == CONTENT:
-            add_box(slide, subline_el, spec.subtitle, "Sub-line", L.subline_size(spec.subtitle))
+            sub = add_box(slide, subline_el, spec.subtitle, "Sub-line", L.subline_size(spec.subtitle))
+            sub.top = Inches(L.SUBLINE_TOP)
 
         missing = []
         if spec.kind == CONTENT:

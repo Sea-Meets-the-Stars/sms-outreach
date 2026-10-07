@@ -24,6 +24,7 @@ def test_content_boxes_inside(title, has_sub):
     cases = [([], 3, ()), ([None], 0, ()), ([1.5], 0, ()), ([1.5], 4, ())]
     cases += [([a, b], 0, ("sea", "stars")) for a in ASPECTS for b in ASPECTS]
     cases += [([a, None], 0, ()) for a in ASPECTS]
+    cases += [([a, b], 3, ("laser", "iodine")) for a in ASPECTS for b in ASPECTS]
     for aspects, n_bul, caps in cases:
         boxes = L.content_boxes(title, has_sub, aspects, n_bul, caps)
         allb = boxes["figures"] + [c for c in boxes["captions"] if c] + ([boxes["bullets"]] if boxes["bullets"] else [])

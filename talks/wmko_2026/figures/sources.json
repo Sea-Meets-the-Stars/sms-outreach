@@ -30,16 +30,14 @@
     "license": "own work"
   },
   "dots.png": {
-    "origin": "MBARI_2026.pptx, slide 13, picture 0",
-    "source": "Dots: a regular grid (MBARI 2026 slide 13)",
-    "credit": "web image — check (trivial to regenerate)",
-    "license": "unknown — check"
+    "origin": "generated (talks/wmko_2026/scripts/fig_dots_squiggles.py)",
+    "source": "J. X. Prochaska & Claude",
+    "slide": "Describe what you see"
   },
   "squiggles.png": {
-    "origin": "MBARI_2026.pptx, slide 13, picture 1",
-    "source": "Squiggles: a Turing-pattern labyrinth (MBARI 2026 slide 13)",
-    "credit": "web image — check",
-    "license": "unknown — check"
+    "origin": "generated (talks/wmko_2026/scripts/fig_dots_squiggles.py)",
+    "source": "Gray-Scott reaction-diffusion simulation (J. X. Prochaska & Claude)",
+    "slide": "Describe what you see"
   },
   "sst_cutout.png": {
     "origin": "MBARI_2026.pptx, slide 14, picture 2",
@@ -128,8 +126,8 @@
   "sacbee.png": {
     "origin": "~/Projects/ClimateIntelligence/presentations/2026_WMKO/sacbee.png",
     "source": "'California professor: AI surpassed me as a scientist. What now?', Sacramento Bee, 21 Aug 2026",
-    "credit": "J. X. Prochaska, The Sacramento Bee; photo Dado Ruvic/Reuters",
-    "license": "author's op-ed (screenshot); Reuters photo not ours"
+    "credit": "J. X. Prochaska, The Sacramento Bee",
+    "license": "author's op-ed (screenshot, cropped to the headline)"
   },
   "a2_bio_uplift.png": {
     "origin": "~/Projects/ClimateIntelligence/presentations/2026_WMKO/figs/a2_bio_uplift.png",
@@ -232,5 +230,116 @@
     "source": "Lick Observatory on Mt Hamilton after a snowfall, 15 Dec 2010",
     "credit": "Jitze Couperus / Wikimedia Commons",
     "license": "CC BY 2.0"
+  },
+  "hokulea_1976.jpg": {
+    "origin": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Hokule%27a.jpg",
+    "source": "Hōkūleʻa arriving in Honolulu from Tahiti, 1976",
+    "credit": "Phil Uhl / Wikimedia Commons",
+    "license": "CC BY-SA 3.0"
+  },
+  "headshot_1990s.png": {
+    "origin": "Honokaʻa_HS_2026.pptx, slide 2, picture 0",
+    "source": "J. X. Prochaska in the 1990s: the photo on his Keck Observer Portal card (Honokaʻa 2026 slide 2)",
+    "credit": "J. X. Prochaska",
+    "license": "own work"
+  },
+  "frb_lris_zoom.png": {
+    "origin": "https://arxiv.org/html/2508.01648v1/FRB20240304_LRIS_R-band.png",
+    "source": "Keck/LRIS R-band zoom on the FRB 20240304B position: nothing there (Caleb et al., Fig. S5, right panel)",
+    "credit": "Caleb et al. 2025; Keck I/LRIS program U299 (PI Prochaska)",
+    "license": "arXiv.org perpetual non-exclusive license (authors retain copyright); reused with attribution by a co-author"
+  },
+  "frb_jwst_zoom.png": {
+    "origin": "https://arxiv.org/html/2508.01648v1/nircam.png",
+    "source": "JWST/NIRCam zoom on the FRB 20240304B position: a faint host galaxy at z = 2.148 (Caleb et al., Fig. 2B)",
+    "credit": "Caleb et al. 2025 (arXiv:2508.01648); NASA, ESA, CSA, JWST",
+    "license": "arXiv.org perpetual non-exclusive license (authors retain copyright); reused with attribution by a co-author"
+  },
+  "obs_model_ai.png": {
+    "slide": "Coupling observations to models with AI",
+    "source": "Schematic: J. X. Prochaska & Claude",
+    "origin": "generated"
+  },
+  "lgs_laser.jpg": {
+    "origin": "https://upload.wikimedia.org/wikipedia/commons/9/9b/The_Stars_Above_Maunakea_%28_MG_7892-Panorama2-CC%29.jpg",
+    "source": "Laser guide stars from the two Keck telescopes on Maunakea (NOIRLab panorama)",
+    "credit": "International Gemini Observatory/NOIRLab/NSF/AURA/B. Tafreshi / Wikimedia Commons",
+    "license": "CC BY 4.0"
+  },
+  "iodine_cell.jpg": {
+    "origin": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/I_vapor.png/1920px-I_vapor.png",
+    "source": "Purple iodine vapour in a glass vessel (stand-in for an astronomical iodine cell)",
+    "credit": "2x910 / Wikimedia Commons",
+    "license": "CC BY-SA 4.0"
+  },
+  "alma.jpg": {
+    "origin": "https://upload.wikimedia.org/wikipedia/commons/7/71/ALMA_beneath_the_stars_%28duro_4776-cc%29.jpg",
+    "source": "ALMA antennas on the Chajnantor plateau beneath the Milky Way",
+    "credit": "A. Duro/ESO / Wikimedia Commons",
+    "license": "CC BY 4.0"
+  },
+  "ocean_glider.jpg": {
+    "origin": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Global_Profiling_Glider_Deployment_%28OOI_111%29.jpg",
+    "source": "An ocean glider (OOI Slocum) at the surface before its first dive (stand-in for a Spray)",
+    "credit": "Ocean Observatories Initiative / Wikimedia Commons",
+    "license": "public domain"
+  },
+  "viirs_sst.png": {
+    "slide": "Ocean satellites: temperature",
+    "source": "NOAA Geo-Polar Blended SST analysis (L4, 5 km; VIIRS NOAA-20/21 + AVHRR + geostationary), NOAA CoastWatch ERDDAP noaacwBLENDEDsstDNDaily, 2026-10-04",
+    "origin": "generated"
+  },
+  "pace_moana.png": {
+    "slide": "Ocean satellites: color",
+    "source": "NASA PACE OCI, MOANA picophytoplankton (Lange et al. 2020), L3 mapped daily, 1 July 2025 (NASA/GSFC/OBPG)",
+    "origin": "generated"
+  },
+  "lample_charton.png": {
+    "slide": "Math is a language too",
+    "source": "Lample & Charton 2020 (ICLR), Table 3",
+    "origin": "generated"
+  },
+  "dh_omega_b.png": {
+    "slide": "HIRES: weighing the Universe and finding planets",
+    "source": "D/H and Ω_b h²: Cooke, Pettini & Steidel 2018, ApJ 855, 102; BBN scaling ∝ η^-1.6: Steigman 2012; Planck 2018 (A&A 641, A6); Keck/HIRES D/H: Tytler, Fan & Burles 1996; Burles & Tytler 1998. Spectrum schematic: J. X. Prochaska & Claude",
+    "origin": "generated"
+  },
+  "dla_public.png": {
+    "slide": "My HIRES work: damped Lyα systems",
+    "source": "Rafelski et al. 2012, ApJ 755, 89 (VizieR J/ApJ/755/89; 242 DLAs, mostly Keck/HIRES + ESI); left panel is an illustration",
+    "origin": "generated"
+  },
+  "hinz_plots.png": {
+    "origin": "Integrating Claude into instrumentation research.pptx, slide 2 (rendered)",
+    "source": "Phil Hinz: sand-height and deflection plots from the glass-slumping model (KASM)",
+    "credit": "Phil Hinz (UCSC)",
+    "license": "used with permission"
+  },
+  "holy_grail_raw.png": {
+    "origin": "~/Projects/PypeIt/the-holy-grail/PR/pr_figure_2panels.png",
+    "source": "A raw thorium-argon arc exposure (APF, Lick)",
+    "credit": "JXP & Claude; APF/Lick Observatory data",
+    "license": "own work"
+  },
+  "holy_grail_cal.png": {
+    "origin": "~/Projects/PypeIt/the-holy-grail/PR/pr_figure_2panels.png",
+    "source": "The same arc coloured by the wavelength found with no human input",
+    "credit": "JXP & Claude; PypeIt",
+    "license": "own work"
+  },
+  "punchline.png": {
+    "slide": "The punchline",
+    "source": "Schematic: J. X. Prochaska & Claude",
+    "origin": "generated"
+  },
+  "universe_pie.png": {
+    "slide": "HIRES: weighing the Universe and finding planets",
+    "source": "Planck 2018 (A&A 641, A6)",
+    "origin": "generated"
+  },
+  "ai_needs_data.png": {
+    "slide": "AI needs data",
+    "source": "Schematic: J. X. Prochaska & Claude",
+    "origin": "generated"
   }
 }

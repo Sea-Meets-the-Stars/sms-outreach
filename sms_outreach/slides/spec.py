@@ -64,6 +64,7 @@ class Slide:
     placeholder: str = ""   # CONTENT slide with no figures: draw a red box with this label
     author: str = ""        # TITLE slide only: replaces the affiliation line
     backup: bool = False    # after the main deck; not counted against MAX_SLIDES
+    plain: bool = False     # render `bullets` as plain paragraphs (quotes), no bullet marks
 
     def __post_init__(self):
         if self.kind not in KINDS:
