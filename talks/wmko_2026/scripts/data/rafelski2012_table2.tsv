@@ -1,0 +1,88 @@
+#
+#   VizieR Astronomical Server vizier.cds.unistra.fr
+#    Date: 2026-10-06T03:37:11 [V7.6.1]
+#   In case of problem, please report to:	cds-question@unistra.fr
+#
+#
+#Coosys	J2000:	eq_FK5 J2000
+#INFO	service_protocol=ASU	  IVOID of the protocol through which the data was retrieved
+#INFO	request_date=2026-10-06T03:37:11	  Query execution date
+#INFO	request=https://vizier.cds.unistra.fr/viz-bin/asu-tsv?-source=J/ApJ/755/89/table2&-out.max=unlimited&-out=QSO,z,NHI,e_NHI,%5BM/H%5D,e_%5BM/H%5D,f_%5BM/H%5D	  Full request URL
+#INFO	contact=cds-question@unistra.fr	  Email or URL to contact publisher
+#INFO	server_software=VizieR/7.6.1	  Software version
+#INFO	publisher=CDS	  Data centre that produced the VOTable
+
+#RESOURCE=yCat_17550089
+#Name: J/ApJ/755/89
+#Title: Metallicities of damped Ly{alpha} systems (Rafelski+, 2012)
+#INFO	ivoid=ivo://cds.vizier/j/apj/755/89	    IVOID of underlying data collection
+#INFO	data_ivoid=ivo://cds.vizier/j/apj/755/89	    IVOID of underlying data collection
+#INFO	creator=Rafelski M.	    First author or institution
+#INFO	cites=bibcode:2012ApJ...755...89R	    Article or Data origin sources
+#INFO	journal=ApJ	    Journal name
+#INFO	original_date=2012	    Year of the article publication
+#INFO	reference_url=https://cdsarc.cds.unistra.fr/viz-bin/cat/J/ApJ/755/89	    Dataset landing page
+#INFO	citation=doi:10.26093/cds/vizier.17550089	    Dataset identifier that can be used for citation
+#INFO	publication_date=2017-11-10	    Date of first publication in the data centre
+#INFO	rights_uri=https://cds.unistra.fr/vizier-org/licences_vizier.html	    Licence URI
+#Table	J_ApJ_755_89_table2:
+#Name: J/ApJ/755/89/table2
+#Title: New DLA metallicities
+#Column	QSO	(a14)	QSO name (1)	[ucd=meta.id;meta.main]
+#Column	z	(F7.4)	[0.09/5.2] Absorption line redshift	[ucd=src.redshift]
+#Column	NHI	(F5.2)	[20.3/21.9] Log of the hydrogen column density	[ucd=phys.columnDensity]
+#Column	e_NHI	(F5.2)	Error in NHI	[ucd=stat.error]
+#Column	[M/H]	(F5.2)	[-3/0.08] Log of "M" to hydrogen number abundance	[ucd=meta.id]
+#Column	e_[M/H]	(F5.2)	Error in [M/H]	[ucd=stat.error;phys.abund]
+#Column	f_[M/H]	(I1)	Origin of [M/H] (4)	[ucd=meta.code]
+QSO	z	NHI	e_NHI	[M/H]	e_[M/H]	f_[M/H]
+ 	 	[cm-2]	[cm-2]	[Sun]	[Sun]	
+--------------	-------	-----	-----	-----	-----	-
+J0040-0915    	 4.7394	20.30	 0.15	-1.40	 0.17	2
+J0747+4434    	 4.0196	20.95	 0.15	-2.28	 0.20	2
+J0759+1800    	 4.6577	20.85	 0.15	-1.74	 0.16	1
+J0817+1351    	 4.2584	21.30	 0.15	-1.15	 0.15	1
+J0825+3544    	 3.2073	20.30	 0.10	-1.68	 0.16	2
+J0825+3544    	 3.6567	21.25	 0.10	-1.83	 0.13	1
+J0825+5127    	 3.3180	20.85	 0.10	-1.67	 0.14	1
+J0831+4046    	 4.3440	20.75	 0.15	-2.36	 0.15	1
+J0834+2140    	 3.7102	20.85	 0.10	-1.56	 0.16	2
+J0834+2140    	 4.3900	21.00	 0.20	-1.30	 0.20	1
+J0834+2140    	 4.4610	20.30	 0.15	-1.86	 0.16	1
+J0839+3524    	 4.2800	20.30	 0.15	-1.15	 0.17	2
+J0909+3303    	 3.6584	20.55	 0.10	-1.19	 0.11	1
+J1013+4240    	 4.7979	20.60	 0.15	-2.14	 0.15	1
+J1017+6116    	 2.7684	20.60	 0.10	-2.17	 0.11	1
+J1042+3107    	 4.0865	20.75	 0.10	-1.95	 0.10	1
+J1051+3107    	 4.1392	20.70	 0.20	-1.99	 0.21	1
+J1051+3545    	 4.3498	20.45	 0.10	-1.88	 0.10	1
+J1051+3545    	 4.8206	20.35	 0.10	-2.28	 0.10	1
+J1100+1122    	 4.3947	21.74	 0.10	-1.68	 0.18	2
+J1101+0531    	 4.3446	21.30	 0.10	-1.07	 0.12	1
+J1111+3509    	 4.0520	20.80	 0.15	-1.95	 0.16	1
+J1155+3510    	 2.7582	21.00	 0.10	-1.38	 0.10	1
+J1200+4015    	 3.2200	20.85	 0.10	-0.64	 0.10	1
+J1200+4618    	 4.4765	20.50	 0.15	-1.38	 0.16	2
+J1201+2117    	 3.7975	21.35	 0.15	-0.75	 0.15	1
+J1201+2117    	 4.1578	20.60	 0.15	-2.38	 0.15	1
+J1202+3235    	 4.7955	21.10	 0.15	-2.36	 0.16	2
+J1202+3235    	 5.0647	20.30	 0.15	-2.66	 0.16	1
+J1238+3437    	 2.4714	20.80	 0.10	-2.04	 0.15	1
+J1241+4617    	 2.6674	20.70	 0.10	-1.84	 0.15	1
+J1248+3110    	 3.6973	20.60	 0.10	-1.63	 0.16	2
+J1253+1046    	 4.6001	20.30	 0.15	-1.36	 0.16	2
+J1257-0111    	 4.0208	20.30	 0.10	-1.56	 0.10	1
+J1304+1202    	 2.9131	20.55	 0.15	-1.65	 0.16	1
+J1304+1202    	 2.9289	20.30	 0.15	-1.54	 0.16	1
+J1353+5328    	 2.8349	20.80	 0.10	-1.38	 0.10	1
+J1412+0624    	 4.1095	20.40	 0.15	-1.72	 0.18	2
+J1438+4314    	 4.3990	20.89	 0.15	-1.31	 0.15	1
+J1507+4406    	 3.0644	20.75	 0.10	-1.93	 0.14	1
+J1541+3153    	 2.4435	20.95	 0.10	-1.49	 0.11	1
+J1607+1604    	 4.4741	20.30	 0.15	-1.71	 0.15	1
+J1626+2751    	 4.3110	21.34	 0.15	-1.34	 0.17	2
+J1626+2751    	 4.4975	21.39	 0.15	-2.46	 0.16	2
+J1626+2751    	 5.1791	20.94	 0.15	-1.49	 0.15	1
+J1654+2227    	 4.0022	20.60	 0.15	-1.66	 0.16	2
+J2252+1425    	 4.7475	20.60	 0.15	-1.77	 0.19	2
+

@@ -1,0 +1,16 @@
+# Runtime dependencies for sms_outreach.
+#
+# Keep this list in sync with install_requires in setup.py.
+
+# Core scientific stack
+numpy
+scipy
+pandas
+matplotlib
+seaborn
+tqdm
+IPython
+pytest
+
+# Slide generation (PowerPoint, converted with LibreOffice)
+python-pptx
