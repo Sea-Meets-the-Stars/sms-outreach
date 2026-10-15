@@ -240,3 +240,23 @@ Run both with `conda run -n ocean14 python talks/ucsc_stats_2026/scripts/<script
 - *Main results.*  β_nw is set almost entirely by its prior, and a_ph is biased low and mostly an upper limit.  GIOP/GSM's fixed S_dg values lead to differences of >400% in a_ph(440) with χ²_ν ≈ 1.
 - *Typos.*  The paper prints S_dg ~ U[0.1, 0.2] and the constant 1.17; the code uses [0.01, 0.02] and 1.7 (Q29).
 - *Not in the paper.*  The PACE + BGC-Argo match-ups are unpublished follow-up in bing (`papers/biomass/`).
+
+### 2026-10-15 (README #3: wrote the README, created the Google Doc)
+
+A Claude Fable 5.1 subagent drafted `talks/ucsc_stats_2026/README.md` from the answers to Q1–Q29 and the facts gathered in #1–#2.  I reviewed the draft and fixed two points:
+- DM_MW is estimated from Galactic models, not "known";
+- F is now defined (how clumpy the intergalactic gas is).
+
+I then created the Google Doc [UCSC Stats 2026 – README](https://docs.google.com/document/d/1I01EHa-QnfNHt_8evr-7-qYof5EsorYFDQxjgMdxsiw/edit) in `GDrive:Oceanography/Talks/2026/UCSC_Stats`.  It is unshared.  No git commands were run.
+
+*How the Doc is built.*  `talks/ucsc_stats_2026/scripts/make_readme_html.py` converts `README.md` to HTML, and Drive `create_file` converts that HTML into a Doc.  The script handles only the Markdown subset this README uses, and with no flag it embeds the figures as JPEG data URIs.
+
+*The figures are placeholders.*  Only the Drive connector is available (no Google Docs editor connector).  The Drive connector takes file content inline, so the 284 KB HTML with embedded figures would have had to be copied through the call by hand.  I uploaded the `--placeholders` version instead.  Each figure cell holds a highlighted "[Insert figure: …]" line, and **the two PNGs must be inserted by hand** (Insert → Image → Upload from computer, into the two top table cells).
+
+*Checks.*
+- I exported the Doc to PDF and looked at the pages.  Page 1 holds the title, summary, figure/caption table and all of the FRB section.  Page 2 holds the ocean section, code and papers, and contacts.
+- The prose is ~3,500 characters, about 15% over the ~3,000 target.  The equations and footer push the Doc onto a second page, which Q27 allows.
+- Equations are plain Unicode (Q26a).
+- Docs' HTML import set the paragraphs with no space between them, and used Arial rather than Cambria for the equations.  Both can be adjusted by hand (Format → Line & paragraph spacing).
+
+*Edits from here on.*  The Doc has to be edited by hand, or the Google Docs connector turned on.  A Drive-only change would mean creating a new file and a new link.
