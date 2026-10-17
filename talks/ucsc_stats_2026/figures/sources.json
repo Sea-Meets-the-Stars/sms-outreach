@@ -8,5 +8,464 @@
     "slide": "UCSC Statistics README: ocean-colour problem",
     "source": "Sketch: J. X. Prochaska & Claude; Loisel et al. 2023 spectrum, PACE noise",
     "origin": "generated"
+  },
+  "nu_lorimer_burst.png": {
+    "slide": "A multi-pronged attack",
+    "source": "Lorimer et al. 2007, Science 318, 777 via NU_2026_talk.pptx (J. X. Prochaska, 2026)",
+    "origin": "lifted",
+    "deck": "NU_2026_talk.pptx",
+    "deck_slide": 15,
+    "shape_id": 282
+  },
+  "nu_ne2001.png": {
+    "slide": "Dispersion measure",
+    "source": "NE2001 Galactic electron model (Cordes & Lazio 2002) via NU_2026_talk.pptx (J. X. Prochaska, 2026)",
+    "origin": "lifted",
+    "deck": "NU_2026_talk.pptx",
+    "deck_slide": 16,
+    "shape_id": 301
+  },
+  "nu_path_image.png": {
+    "slide": "PATH",
+    "source": "PATH host association (Aggarwal et al. 2021; Bannister et al. 2019 field) via NU_2026_talk.pptx (J. X. Prochaska, 2026)",
+    "origin": "lifted",
+    "deck": "NU_2026_talk.pptx",
+    "deck_slide": 21,
+    "shape_id": 402
+  },
+  "nu_host_spectra.png": {
+    "slide": "Redshift",
+    "source": "Keck/KCWI and Gemini/GMOS host spectra (Bannister et al. 2019) via NU_2026_talk.pptx (J. X. Prochaska, 2026)",
+    "origin": "lifted",
+    "deck": "NU_2026_talk.pptx",
+    "deck_slide": 21,
+    "shape_id": 400
+  },
+  "nu_macquart_2020.png": {
+    "slide": "Backup: Macquart 2020",
+    "source": "Macquart et al. 2020, Nature 581, 391 via NU_2026_talk.pptx (J. X. Prochaska, 2026)",
+    "origin": "lifted",
+    "deck": "NU_2026_talk.pptx",
+    "deck_slide": 22,
+    "shape_id": 412
+  },
+  "nu_macquart_2026.png": {
+    "slide": "A multi-pronged attack; Results",
+    "source": "Localized FRBs to 2026, compiled by J. X. Prochaska via NU_2026_talk.pptx (J. X. Prochaska, 2026)",
+    "origin": "lifted",
+    "deck": "NU_2026_talk.pptx",
+    "deck_slide": 23,
+    "shape_id": 425
+  },
+  "nu_dm_cliff.png": {
+    "slide": "Population modeling: the model",
+    "source": "p(DM_EG, z) from zdm (James et al. 2022) via NU_2026_talk.pptx (J. X. Prochaska, 2026)",
+    "origin": "lifted",
+    "deck": "NU_2026_talk.pptx",
+    "deck_slide": 27,
+    "shape_id": 463
+  },
+  "nu_baptista_F.png": {
+    "slide": "Backup: F and feedback",
+    "source": "Baptista et al. 2024, ApJ via NU_2026_talk.pptx (J. X. Prochaska, 2026)",
+    "origin": "lifted",
+    "deck": "NU_2026_talk.pptx",
+    "deck_slide": 28,
+    "shape_id": 482
+  },
+  "nu_connor_feedback.png": {
+    "slide": "Backup: F and feedback",
+    "source": "Connor et al. 2025 (DSA-110) via NU_2026_talk.pptx (J. X. Prochaska, 2026)",
+    "origin": "lifted",
+    "deck": "NU_2026_talk.pptx",
+    "deck_slide": 30,
+    "shape_id": 503
+  },
+  "nu_tau_cdf.png": {
+    "slide": "Backup: scattering",
+    "source": "Scott et al. 2025 via NU_2026_talk.pptx (J. X. Prochaska, 2026)",
+    "origin": "lifted",
+    "deck": "NU_2026_talk.pptx",
+    "deck_slide": 47,
+    "shape_id": 683
+  },
+  "nu_whost.png": {
+    "slide": "Backup: scattering",
+    "source": "James et al. 2026 via NU_2026_talk.pptx (J. X. Prochaska, 2026)",
+    "origin": "lifted",
+    "deck": "NU_2026_talk.pptx",
+    "deck_slide": 48,
+    "shape_id": 697
+  },
+  "nu_nfrb_vs_year.png": {
+    "slide": "It starts with a radio telescope",
+    "source": "FRB discoveries per year, compiled by J. X. Prochaska via NU_2026_talk.pptx (J. X. Prochaska, 2026)",
+    "origin": "lifted",
+    "deck": "NU_2026_talk.pptx",
+    "deck_slide": 49,
+    "shape_id": 705
+  },
+  "nu_outrigger_loc.png": {
+    "slide": "Localization",
+    "source": "CHIME/FRB outrigger localization on a DECaLS image via NU_2026_talk.pptx (J. X. Prochaska, 2026)",
+    "origin": "lifted",
+    "deck": "NU_2026_talk.pptx",
+    "deck_slide": 50,
+    "shape_id": 717
+  },
+  "nu_outrigger_photo.png": {
+    "slide": "Localization",
+    "source": "CHIME outrigger photo (CHIME/FRB collaboration; owner to confirm) via NU_2026_talk.pptx (J. X. Prochaska, 2026)",
+    "origin": "lifted",
+    "deck": "NU_2026_talk.pptx",
+    "deck_slide": 50,
+    "shape_id": 718
+  },
+  "nu_h0_contours.png": {
+    "slide": "Backup: H0",
+    "source": "p(DM_EG, z) for H0 = 60, 70, 80 from zdm (James et al. 2022) via NU_2026_talk.pptx (J. X. Prochaska, 2026)",
+    "origin": "lifted",
+    "deck": "NU_2026_talk.pptx",
+    "deck_slide": 55,
+    "shape_id": 786
+  },
+  "awoc_bing_fit_sim.png": {
+    "slide": "(spare)",
+    "source": "BING fit to a Loisel et al. 2023 Hydrolight spectrum with PACE noise via AWOC_2025.pptx (J. X. Prochaska, 2025)",
+    "origin": "lifted",
+    "deck": "AWOC_2025.pptx",
+    "deck_slide": 7,
+    "shape_id": 141
+  },
+  "awoc_corner.png": {
+    "slide": "Standard MCMC",
+    "source": "BING 5-parameter posterior (emcee) via AWOC_2025.pptx (J. X. Prochaska, 2025)",
+    "origin": "lifted",
+    "deck": "AWOC_2025.pptx",
+    "deck_slide": 9,
+    "shape_id": 167
+  },
+  "awoc_three_models.png": {
+    "slide": "Infinite templates I, II",
+    "source": "k=5 / GIOP / GSM fits to one simulated PACE spectrum (Prochaska & Frouin 2025, Biogeosciences 22, 4705, doi:10.5194/bg-22-4705-2025 (CC BY 4.0), Fig. 10) via AWOC_2025.pptx (J. X. Prochaska, 2025)",
+    "origin": "lifted",
+    "deck": "AWOC_2025.pptx",
+    "deck_slide": 10,
+    "shape_id": 175
+  },
+  "awoc_giop_bias.png": {
+    "slide": "(spare)",
+    "source": "GIOP retrievals vs truth with MODIS noise (Prochaska & Frouin 2025, Biogeosciences 22, 4705, doi:10.5194/bg-22-4705-2025 (CC BY 4.0), Fig. B4) via AWOC_2025.pptx (J. X. Prochaska, 2025)",
+    "origin": "lifted",
+    "deck": "AWOC_2025.pptx",
+    "deck_slide": 14,
+    "shape_id": 211
+  },
+  "awoc_dbic.png": {
+    "slide": "Backup: ΔBIC",
+    "source": "ΔBIC CDFs (Prochaska & Frouin 2025, Biogeosciences 22, 4705, doi:10.5194/bg-22-4705-2025 (CC BY 4.0), Fig. 6) via AWOC_2025.pptx (J. X. Prochaska, 2025)",
+    "origin": "lifted",
+    "deck": "AWOC_2025.pptx",
+    "deck_slide": 15,
+    "shape_id": 221
+  },
+  "awoc_pace_fit.png": {
+    "slide": "PACE; Strong systematics; Poorly measured errors",
+    "source": "BING fit to a real PACE OCI v3 spectrum, pixel 1902368_013 via AWOC_2025.pptx (J. X. Prochaska, 2025)",
+    "origin": "lifted",
+    "deck": "AWOC_2025.pptx",
+    "deck_slide": 17,
+    "shape_id": 239
+  },
+  "awoc_pab_matchups.png": {
+    "slide": "Where do we take new data?",
+    "source": "PACE × BGC-Argo match-ups (A. James et al. 2026, in prep.) via AWOC_2025.pptx (J. X. Prochaska, 2025)",
+    "origin": "lifted",
+    "deck": "AWOC_2025.pptx",
+    "deck_slide": 20,
+    "shape_id": 271
+  },
+  "awoc_pab_dbbp.png": {
+    "slide": "Poorly measured errors",
+    "source": "Relative Δb_bp, PACE minus BGC-Argo (A. James et al. 2026, in prep.) via AWOC_2025.pptx (J. X. Prochaska, 2025)",
+    "origin": "lifted",
+    "deck": "AWOC_2025.pptx",
+    "deck_slide": 21,
+    "shape_id": 277
+  },
+  "awoc_pace_fit_rrs.png": {
+    "slide": "PACE; Strong systematics; Poorly measured errors",
+    "source": "BING fit to a real PACE OCI v3 spectrum, pixel 1902368_013 via AWOC_2025.pptx (J. X. Prochaska, 2025) (panel)",
+    "origin": "lifted",
+    "crop_of": "awoc_pace_fit.png"
+  },
+  "awoc_pace_fit_residuals.png": {
+    "slide": "Poorly measured errors",
+    "source": "BING fit to a real PACE OCI v3 spectrum, pixel 1902368_013 via AWOC_2025.pptx (J. X. Prochaska, 2025) (panel)",
+    "origin": "lifted",
+    "crop_of": "awoc_pace_fit.png"
+  },
+  "telescopes_montage.png": {
+    "slide": "It starts with a radio telescope",
+    "source": "Telescope photos (MeerKAT: SARAO; CHIME: CHIME collaboration; ASKAP: CSIRO; Parkes/Murriyang: CSIRO; owners to confirm) via NU_2026_talk.pptx (J. X. Prochaska, 2026)",
+    "origin": "lifted",
+    "deck": "NU_2026_talk.pptx",
+    "deck_slides": [
+      4,
+      14
+    ]
+  },
+  "hoffmann_fig1_corner.png": {
+    "slide": "Population modeling: MCMC",
+    "source": "Fig. 1 of Hoffmann, James, Prochaska, Pastor-Marazuela, Sharma & Connor 2026, arXiv:2609.27282",
+    "origin": "cropped",
+    "pdf": "hoffmann2026.pdf",
+    "page": 6,
+    "box": [
+      0.05,
+      0.13,
+      0.93,
+      0.79
+    ]
+  },
+  "hoffmann_fig1_nsfr_alpha.png": {
+    "slide": "(spare)",
+    "source": "Fig. 1 (detail) of Hoffmann, James, Prochaska, Pastor-Marazuela, Sharma & Connor 2026, arXiv:2609.27282",
+    "origin": "cropped",
+    "pdf": "hoffmann2026.pdf",
+    "page": 6,
+    "box": [
+      0.05,
+      0.115,
+      0.26,
+      0.265
+    ]
+  },
+  "hoffmann_fig2_repetition.png": {
+    "slide": "Backup: repetition",
+    "source": "Fig. 2 of Hoffmann, James, Prochaska, Pastor-Marazuela, Sharma & Connor 2026, arXiv:2609.27282",
+    "origin": "cropped",
+    "pdf": "hoffmann2026.pdf",
+    "page": 7,
+    "box": [
+      0.04,
+      0.515,
+      0.48,
+      0.86
+    ]
+  },
+  "hoffmann_fig3_chime_cdf.png": {
+    "slide": "Results to date",
+    "source": "Fig. 3 of Hoffmann, James, Prochaska, Pastor-Marazuela, Sharma & Connor 2026, arXiv:2609.27282",
+    "origin": "cropped",
+    "pdf": "hoffmann2026.pdf",
+    "page": 10,
+    "box": [
+      0.51,
+      0.14,
+      0.93,
+      0.37
+    ]
+  },
+  "bing_fig4_degeneracy.png": {
+    "slide": "A physical degeneracy",
+    "source": "Fig. 4 of Prochaska & Frouin 2025, Biogeosciences 22, 4705, doi:10.5194/bg-22-4705-2025 (CC BY 4.0)",
+    "origin": "cropped",
+    "pdf": "bing.pdf",
+    "page": 8,
+    "box": [
+      0.08,
+      0.08,
+      0.92,
+      0.35
+    ]
+  },
+  "bing_fig8_beta_prior.png": {
+    "slide": "(spare)",
+    "source": "Fig. 8 (bottom row) of Prochaska & Frouin 2025, Biogeosciences 22, 4705, doi:10.5194/bg-22-4705-2025 (CC BY 4.0)",
+    "origin": "cropped",
+    "pdf": "bing.pdf",
+    "page": 12,
+    "box": [
+      0.17,
+      0.46,
+      0.84,
+      0.6
+    ]
+  },
+  "bing_fig10_priors.png": {
+    "slide": "Priors",
+    "source": "Fig. 10 (a, b) of Prochaska & Frouin 2025, Biogeosciences 22, 4705, doi:10.5194/bg-22-4705-2025 (CC BY 4.0)",
+    "origin": "cropped",
+    "pdf": "bing.pdf",
+    "page": 14,
+    "box": [
+      0.17,
+      0.08,
+      0.83,
+      0.29
+    ]
+  },
+  "bing_fig11_aph.png": {
+    "slide": "Priors",
+    "source": "Fig. 11 (a) of Prochaska & Frouin 2025, Biogeosciences 22, 4705, doi:10.5194/bg-22-4705-2025 (CC BY 4.0)",
+    "origin": "cropped",
+    "pdf": "bing.pdf",
+    "page": 15,
+    "box": [
+      0.19,
+      0.08,
+      0.485,
+      0.305
+    ]
+  },
+  "bing_fig6_dbic.png": {
+    "slide": "(spare)",
+    "source": "Fig. 6 of Prochaska & Frouin 2025, Biogeosciences 22, 4705, doi:10.5194/bg-22-4705-2025 (CC BY 4.0)",
+    "origin": "cropped",
+    "pdf": "bing.pdf",
+    "page": 10,
+    "box": [
+      0.17,
+      0.08,
+      0.83,
+      0.3
+    ]
+  },
+  "kramer_fig5_method.png": {
+    "slide": "Second derivative + PCA",
+    "source": "Fig. 5 (top row) of Kramer, Siegel, Maritorena & Catlett 2022, Remote Sens. Environ. 270, 112879, doi:10.1016/j.rse.2021.112879 (CC BY)",
+    "origin": "cropped",
+    "pdf": "kramer2022.pdf",
+    "page": 7,
+    "box": [
+      0.067,
+      0.42,
+      0.936,
+      0.605
+    ]
+  },
+  "kramer_fig6_results.png": {
+    "slide": "Second derivative + PCA",
+    "source": "Fig. 6 (A, B) of Kramer, Siegel, Maritorena & Catlett 2022, Remote Sens. Environ. 270, 112879, doi:10.1016/j.rse.2021.112879 (CC BY)",
+    "origin": "cropped",
+    "pdf": "kramer2022.pdf",
+    "page": 9,
+    "box": [
+      0.165,
+      0.071,
+      0.834,
+      0.33
+    ]
+  },
+  "pace_moana.png": {
+    "slide": "What is in the water?; PFTs",
+    "source": "NASA PACE OCI, MOANA picophytoplankton (Lange et al. 2020), L3 mapped daily, 1 July 2025 (NASA/GSFC/OBPG); figure made for talks/wmko_2026",
+    "origin": "copied",
+    "copied_from": "/Users/xavier/Projects/sms-outreach/talks/wmko_2026/figures/pace_moana.png"
+  },
+  "moana_pc_loadings.png": {
+    "slide": "PCA of the spectrum",
+    "source": "MOANA PCA basis (Lange et al. 2020) re-derived in EPFT-UP (J. X. Prochaska & Claude, 2026)",
+    "origin": "copied",
+    "copied_from": "/Users/xavier/Oceanography/python/EPFT-UP/reports/figures/moana_pc_loadings.png",
+    "trimmed": [
+      0.0,
+      0.085,
+      1.0,
+      1.0
+    ]
+  },
+  "roms_sst_nowcast.png": {
+    "slide": "A model ocean constrained by data",
+    "source": "UCSC Ocean Modeling and Data Assimilation group (C. A. Edwards, A. M. Moore), oceanmodeling.ucsc.edu, CC BY 3.0; SST analysis for 2026-10-13",
+    "origin": "downloaded",
+    "url": "https://oceanmodeling.ucsc.edu/ccsnrt/webplots/da/SST/SST_20261013.png",
+    "date": "2026-10-13",
+    "trimmed": [
+      0.0,
+      0.085,
+      1.0,
+      0.935
+    ]
+  },
+  "awoc_three_models_rrs.png": {
+    "slide": "Infinite templates I",
+    "source": "k=5 / GIOP / GSM fits to one simulated PACE spectrum (Prochaska & Frouin 2025, Biogeosciences 22, 4705, doi:10.5194/bg-22-4705-2025 (CC BY 4.0), Fig. 10) via AWOC_2025.pptx (J. X. Prochaska, 2025) (panel)",
+    "origin": "lifted",
+    "crop_of": "awoc_three_models.png"
+  },
+  "awoc_three_models_bb.png": {
+    "slide": "Infinite templates II",
+    "source": "k=5 / GIOP / GSM fits to one simulated PACE spectrum (Prochaska & Frouin 2025, Biogeosciences 22, 4705, doi:10.5194/bg-22-4705-2025 (CC BY 4.0), Fig. 10) via AWOC_2025.pptx (J. X. Prochaska, 2025) (panel)",
+    "origin": "lifted",
+    "crop_of": "awoc_three_models.png"
+  },
+  "awoc_three_models_aph.png": {
+    "slide": "Infinite templates II",
+    "source": "k=5 / GIOP / GSM fits to one simulated PACE spectrum (Prochaska & Frouin 2025, Biogeosciences 22, 4705, doi:10.5194/bg-22-4705-2025 (CC BY 4.0), Fig. 10) via AWOC_2025.pptx (J. X. Prochaska, 2025) (panel)",
+    "origin": "lifted",
+    "crop_of": "awoc_three_models.png"
+  },
+  "eq_dm_sum.png": {
+    "slide": "Dispersion measure",
+    "source": "Equation rendered by J. X. Prochaska & Claude (matplotlib mathtext)",
+    "origin": "generated"
+  },
+  "eq_lambda.png": {
+    "slide": "Population modeling: the model",
+    "source": "Equation rendered by J. X. Prochaska & Claude (matplotlib mathtext)",
+    "origin": "generated"
+  },
+  "eq_lnL_frb.png": {
+    "slide": "Population modeling: the likelihood",
+    "source": "Equation rendered by J. X. Prochaska & Claude (matplotlib mathtext)",
+    "origin": "generated"
+  },
+  "eq_path.png": {
+    "slide": "PATH",
+    "source": "Equation rendered by J. X. Prochaska & Claude (matplotlib mathtext)",
+    "origin": "generated"
+  },
+  "eq_gordon.png": {
+    "slide": "The forward model",
+    "source": "Equation rendered by J. X. Prochaska & Claude (matplotlib mathtext)",
+    "origin": "generated"
+  },
+  "eq_iop_model.png": {
+    "slide": "The forward model",
+    "source": "Equation rendered by J. X. Prochaska & Claude (matplotlib mathtext)",
+    "origin": "generated"
+  },
+  "eq_lnL_gauss.png": {
+    "slide": "Standard MCMC",
+    "source": "Equation rendered by J. X. Prochaska & Claude (matplotlib mathtext)",
+    "origin": "generated"
+  },
+  "eq_bic.png": {
+    "slide": "(spare)",
+    "source": "Equation rendered by J. X. Prochaska & Claude (matplotlib mathtext)",
+    "origin": "generated"
+  },
+  "cugn_lines.png": {
+    "slide": "A model ocean constrained by data; Optimize the robot placement",
+    "source": "CUGN lines 56.0, 66.7, 80.0, 90.0 (Rudnick et al. 2017, J. Geophys. Res. Oceans); coastline: Natural Earth; drawn by J. X. Prochaska & Claude",
+    "origin": "generated"
+  },
+  "bing_cost.png": {
+    "slide": "Expensive for one spectrum. Operational?",
+    "source": "Timing of one BING fit (time_bing_fit.py) on this machine; PACE count assumed ~1e8 cloud-free ocean spectra/day; J. X. Prochaska & Claude",
+    "origin": "generated"
+  },
+  "amortized_schematic.png": {
+    "slide": "Can we GP this?",
+    "source": "Schematic: J. X. Prochaska & Claude",
+    "origin": "generated"
+  },
+  "ocean_sketch_forward.png": {
+    "slide": "What is in the water?",
+    "source": "Sketch: J. X. Prochaska & Claude; Loisel et al. 2023 spectrum, PACE noise (panel)",
+    "origin": "lifted",
+    "crop_of": "ocean_sketch.png"
   }
 }

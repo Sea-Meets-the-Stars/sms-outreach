@@ -1,0 +1,91 @@
+{
+  "description": "Wall-clock time of one BING fit (Prochaska & Frouin 2025) of one PACE-like spectrum on this machine",
+  "spectrum": {
+    "dataset": "Loisel et al. 2023 Hydrolight (ds 4, 0)",
+    "index": 170,
+    "Chl_mg_m3": 0.13061626255512238,
+    "wv_min_nm": 400.0,
+    "wv_max_nm": 700.0,
+    "n_bands": 61,
+    "satellite": "PACE",
+    "noise": "PACE Level-2 median uncertainty table (ocpy PACE_error.csv), noise added, seed 12345"
+  },
+  "model": {
+    "names": [
+      "ExpBricaud",
+      "Pow"
+    ],
+    "parameters": [
+      "Adg",
+      "Sdg",
+      "Aph",
+      "Bnw",
+      "beta"
+    ],
+    "ndim": 5,
+    "rt_backend": "gordon",
+    "variable_Gordon": true
+  },
+  "mcmc": {
+    "sampler": "emcee EnsembleSampler (default stretch move, serial, no pool)",
+    "nwalkers": 16,
+    "nwalkers_rule": "max(16, 2*ndim)",
+    "nsteps": 75000,
+    "nburn": 1000,
+    "nsteps_run": 75000,
+    "scaled_from_shorter_run": false,
+    "scale_factor": 1.0,
+    "n_likelihood_evaluations": 1216000,
+    "mean_acceptance_fraction": 0.3535025
+  },
+  "seconds": {
+    "prep_cold_incl_L23_load": 1.001174125005491,
+    "prep": 0.033809666987508535,
+    "lm": 0.002779749920591712,
+    "emcee_measured": 29.28066237492021,
+    "emcee": 29.28066237492021,
+    "emcee_pilot": 0.23436299990862608,
+    "per_likelihood_evaluation_us": 24.079492084638332,
+    "per_spectrum": 29.317251791828312
+  },
+  "fit": {
+    "lm_params": [
+      -1.6867841414422517,
+      0.019999999999999997,
+      -2.0276872835780186,
+      -3.6999504673206545,
+      1.9999999999999998
+    ],
+    "posterior_median": [
+      -1.646809387406495,
+      0.01467559727047856,
+      -2.2774280272393526,
+      -3.6463049407129007,
+      1.0928141670655038
+    ],
+    "emcee_start": "LM solution, clipped 1% inside prior bounds"
+  },
+  "machine": {
+    "machine": "arm64",
+    "processor": "arm",
+    "cpu_count": 18,
+    "system": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "cpu_brand": "Apple M5 Max",
+    "mac_model": "Mac17,6"
+  },
+  "versions": {
+    "python": "3.14.6",
+    "numpy": "2.4.6",
+    "scipy": "1.18.0",
+    "emcee": "3.1.6",
+    "bing_path": "/Users/xavier/Oceanography/python/bing/bing"
+  },
+  "assumptions": [
+    "Timing is single-core wall clock (time.perf_counter); emcee runs serially, log_prob is pure numpy (not jitted).",
+    "per_spectrum = prep (warm) + lm + emcee; cold prep includes reading the L23 netCDF once and is excluded.",
+    "emcee seconds are for nburn + nsteps steps; if scaled_from_shorter_run is true they are a linear extrapolation from nsteps_run production steps.",
+    "Walkers start at the Levenberg-Marquardt solution as in the paper's LM-then-MCMC workflow."
+  ],
+  "script": "talks/ucsc_stats_2026/scripts/time_bing_fit.py",
+  "timestamp": "2026-10-16 07:58:45"
+}

@@ -310,7 +310,7 @@ def fill_content_slide(slide, spec, fig_dirs, cache_dir):
     return [f.path for f, p in zip(spec.figures, paths) if p is None]
 
 
-def build_deck(template, slides, fig_dirs, cache_dir=None):
+def build_deck(template, slides, fig_dirs, cache_dir=None, credits_in_notes=False):
     """Created by JXP and Claude. Build the deck in memory.
 
     Inputs
@@ -319,6 +319,8 @@ def build_deck(template, slides, fig_dirs, cache_dir=None):
     slides : list of spec.Slide; the first must be kind TITLE
     fig_dirs : directories searched for figure files
     cache_dir : where downsampled photo copies go (default: system temp)
+    credits_in_notes : if True, a slide's `source` goes into the speaker
+        notes only (no Source box is drawn on the slide)
 
     Output
     ------
@@ -373,7 +375,7 @@ def build_deck(template, slides, fig_dirs, cache_dir=None):
             box = L.image_box(spec.title, aspect_of(path) if path else None)
             add_figure(slide, fig, box, fig_dirs, cache_dir, fill_cell=False)
             missing = [] if path else [fig.path]
-        if spec.source:
+        if spec.source and not credits_in_notes:
             add_source(slide, spec.source)
         slide.notes_slide.notes_text_frame.text = notes_text(spec, missing, sources)
         what = spec.kind + (f", MISSING {missing}" if missing else "")

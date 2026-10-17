@@ -125,3 +125,25 @@ def test_slide_ready_modes(tmp_path):
     Image.new("RGB", (3000, 1500), "white").save(big)
     out = slide_ready(big, tmp_path / "cache")
     assert out.suffix == ".png" and max(Image.open(out).size) <= 2200
+
+
+@pytest.mark.skipif(not KRAW.exists(), reason="Kraw master not available")
+def test_credits_in_notes(tmp_path):
+    """With credits_in_notes the source goes into the notes only, no Source
+    box is drawn, and QA does not warn about figures without a source line."""
+    from sms_outreach.slides.deck import build_deck
+
+    Image.new("RGB", (800, 450), "steelblue").save(tmp_path / "real.png")
+    slides = [
+        Slide("Test deck", kind=TITLE, author="Somewhere"),
+        Slide("A real figure", figures=["real.png"], source="Credit Y", notes="n"),
+    ]
+    prs, _ = build_deck(KRAW, slides, [tmp_path], cache_dir=tmp_path / "cache", credits_in_notes=True)
+    out = tmp_path / "t.pptx"
+    prs.save(out)
+    names = {sh.name for sh in prs.slides[1].shapes}
+    assert "Figure" in names and "Source" not in names
+    assert "Credit Y" in prs.slides[1].notes_slide.notes_text_frame.text
+    problems, warnings, _ = qa.check(out, credits_in_notes=True)
+    assert problems == [] and warnings == []
+    assert any("without a source" in w for w in qa.check(out)[1])

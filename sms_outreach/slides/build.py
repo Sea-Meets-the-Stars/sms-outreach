@@ -22,7 +22,8 @@ from .deck import build_deck
 
 def load_plan(path):
     """Created by JXP and Claude. Execute a plan file and return its namespace
-    (TEMPLATE, FIG_DIRS, OUTPUT, SLIDES, optional MAX_SLIDES)."""
+    (TEMPLATE, FIG_DIRS, OUTPUT, SLIDES, optional MAX_SLIDES, CACHE_DIR,
+    CREDITS_IN_NOTES)."""
     ns = runpy.run_path(str(path))
     for key in ("TEMPLATE", "FIG_DIRS", "OUTPUT", "SLIDES"):
         if key not in ns:
@@ -57,7 +58,9 @@ def main(argv=None):
 
     plan = load_plan(args.plan)
     out = Path(args.output or plan["OUTPUT"]).expanduser()
-    prs, report = build_deck(plan["TEMPLATE"], plan["SLIDES"], plan["FIG_DIRS"], plan.get("CACHE_DIR"))
+    credits_in_notes = bool(plan.get("CREDITS_IN_NOTES", False))
+    prs, report = build_deck(plan["TEMPLATE"], plan["SLIDES"], plan["FIG_DIRS"], plan.get("CACHE_DIR"),
+                             credits_in_notes=credits_in_notes)
     for n, title, what in report:
         print(f"slide {n:2d}: {title[:48]:48s} {what}")
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -65,7 +68,7 @@ def main(argv=None):
     print(f"wrote {out}: {len(prs.slides)} slides, {out.stat().st_size / 1e6:.1f} MB")
 
     n_backup = sum(s.backup for s in plan["SLIDES"])
-    ok = qa.report(out, plan.get("MAX_SLIDES"), n_backup, strict=args.strict)
+    ok = qa.report(out, plan.get("MAX_SLIDES"), n_backup, strict=args.strict, credits_in_notes=credits_in_notes)
     if args.pdf or args.png:
         pdf = render_pdf(out, png=args.png)
         print(f"rendered {pdf}")

@@ -15,7 +15,8 @@ Failures (always):
   6. a bullet list taller than its box.
 Warnings (failures with strict=True, e.g. for the final deck):
   7. a slide without speaker notes;
-  8. a figure (picture) without a source line.
+  8. a figure (picture) without a source line (skipped when the plan sets
+     CREDITS_IN_NOTES, i.e. credits live in the notes).
 Placeholders (red boxes for missing figures) are counted and listed.
 """
 from pptx import Presentation
@@ -57,12 +58,13 @@ def placeholders(prs):
     return out
 
 
-def check(path, max_slides=None, n_backup=0, strict=False):
+def check(path, max_slides=None, n_backup=0, strict=False, credits_in_notes=False):
     """Created by JXP and Claude. Run all checks.
 
     Inputs: deck path; max_slides (None = no limit); n_backup = number of
     trailing backup slides not counted against max_slides; strict = treat
-    warnings as failures.
+    warnings as failures; credits_in_notes = do not warn about figures
+    without a source line on the slide.
     Output: (problems, warnings, placeholder list).
     """
     prs = Presentation(str(path))
@@ -97,16 +99,16 @@ def check(path, max_slides=None, n_backup=0, strict=False):
                 problems.append(f"{tag}: bullets overflow their box (cut text)")
         if i > 1 and not (slide.has_notes_slide and slide.notes_slide.notes_text_frame.text.strip()):
             warnings.append(f"{tag}: no speaker notes")
-        if "Figure" in shapes and "Source" not in shapes:
+        if "Figure" in shapes and "Source" not in shapes and not credits_in_notes:
             warnings.append(f"{tag}: figure without a source line")
     if strict:
         problems, warnings = problems + warnings, []
     return problems, warnings, placeholders(prs)
 
 
-def report(path, max_slides=None, n_backup=0, strict=False):
+def report(path, max_slides=None, n_backup=0, strict=False, credits_in_notes=False):
     """Created by JXP and Claude. Print the QA report; return True if it passed."""
-    problems, warnings, ph = check(path, max_slides, n_backup, strict)
+    problems, warnings, ph = check(path, max_slides, n_backup, strict, credits_in_notes)
     print(f"QA {path}: {len(ph)} placeholder(s), {len(warnings)} warning(s)")
     for i, title, label in ph:
         print(f"  placeholder  slide {i:2d} {title[:40]:40s} {label.replace(chr(10), ' ')[:60]}")
