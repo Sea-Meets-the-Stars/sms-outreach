@@ -149,7 +149,11 @@ Use Fable if you can.  Log your work.
 
 5. **QA and hand-off.**  Two Fable subagents: (a) a layout review of every page PNG (overlaps, text off-slide, figures too small to read, equation size); (b) a fact check of every note and bullet against the README, the three papers and the Q&A, reporting each claim it cannot source.  Fix what they find, rebuild with `--png --strict`, copy the `.pptx` and PDF to Drive, and log the final placeholder list and the "Left for you" list.
 
-6. **Edits on the current deck.**  Make these edits and produce a new deck (rebuild with `--png --strict`, copy to Drive, log):
+6. **A bit more** I have answered the questions you posed after #5.  Please read
+my responses and act accordingly.  I will then view the slide deck and suggest
+more edits in #7.  Use Fable if you can.  Log your work.
+
+7. **Edits on the current deck.**  Make these edits and produce a new deck (rebuild with `--png --strict`, copy to Drive, log):
    - (list the edits here)
 
 ## Q&A
@@ -313,43 +317,43 @@ Every question has a default.  The plan (Q26) stands; round 2 settles the last t
 
 27. **"ROM" for coastal California.**  The WCOFS page you pointed to describes **ROMS** 4D-Var data assimilation (Edwards, Moore; UCSC ROMS at 10 km running daily for CeNCOOS since 2011; WCOFS at 2 km, 4D-Var assimilating HF radar, altimetry and SST), and says nothing about a reduced-order model.  Did you mean ROMS, or a reduced-order (surrogate) model built from it?  The slide changes with the answer: ROMS = "a numerical ocean constrained by data, and 4D-Var is the bottleneck" (the `Stats Talk` prong "speeding up data assimilation"); reduced-order = "can a learned emulator replace the ocean model in the assimilation loop?".
     - Default: ROMS.  Slide 38 becomes "The California coast: a model ocean constrained by data", citing the WCOFS project and Edwards et al. 2015 (Ann. Rev. Mar. Sci.), with the ask: faster assimilation, learned emulators, uncertainty that 4D-Var does not give.
-    - A:
+    - A:  Use your Default
 28. **Visual for slide 38.**  Nothing local shows ROMS output.  Options: (a) a screenshot of the public UCSC nowcast (oceanmodeling.ucsc.edu, SST or surface currents), (b) a figure from a paper you download, (c) the CUGN line-geometry map only.
     - Default: (a), credited in the notes, beside the CUGN line map.
-    - A:
+    - A: Go with (a) for now
 29. **Robot placement (slide 39).**  "What science is gained by running gliders off their standard lines" is an observing-system design problem.  Chris Edwards' group already has a formalism for it: Moore, Arango & Edwards 2018, "Reduced-rank array modes of the California Current observing system" (JGR Oceans), and Mattern, Takeshita, Rocha & Edwards 2026 (Biogeosciences) assimilate glider pH with "hybrid statistical methods".  I would frame the slide as: standard lines (56, 66.7, 80, 90; map from `cugn`), the question (which track, when, buys the most forecast or climatology skill?), and the statistical shape (sequential experimental design / value of information with the model as the testbed), ending with BOONUS (~100 gliders) as the forthcoming dataset the abstract promises.
     - Default: as above; `obs_model_ai.png` dropped in favour of the line map.  Cite Rudnick et al. 2017 (CUGN) and Moore et al. 2018.
-    - A:
+    - A: Use your Default;  I may change it later
 30. **CUGN line map.**  `cugn-climatology/context/figs/fig01_line_geometry.png` draws the four lines but has no coastline.  I would redraw it (new script, `scripts/fig_cugn_lines.py`) with a coastline.  The repo has no cartopy; I can draw the coast from a public coastline file (e.g. Natural Earth, downloaded into `talks/ucsc_stats_2026/data/`) or use `cugn`'s own tools if it has one.
     - Default: redraw with Natural Earth coastline; one new small data file in the repo.
-    - A:
+    - A: Use your Default
 
 **H. Figure crops from the two papers (Q13, Q20)**
 
 31. **Hoffmann+2026 crops.**  A subagent catalogued every figure.  Proposed: MCMC slide = Fig. 1 (p. 6, the full 11-parameter corner plot; the n_sfr–α panel enlarged as an inset or second crop); Results slide = Fig. 3 (p. 10, CHIME DM_EG cumulative distribution vs the model, the only model-vs-data figure) beside the Macquart relation from NU_2026, with the repeater counts of Table 6 quoted as text.  Fig. 2 (p. 7, the R_min/R_max/R_γ block) as backup B5.
     - Default: as above.
-    - A:
+    - A: Use your Default
 32. **BING crops.**  Proposed: priors slide = Fig. 10 panels (a)+(b) (p. 14: three fits with χ²_ν ≈ 1, a_ph differing by >400%), which supersedes AWOC slide 14; a second priors panel = Fig. 8 bottom row (p. 12, β set by its prior); degeneracy slide = Fig. 4 (p. 8, a and b_b scaled up to 100× with identical R_rs), which is more dramatic than the right half of `ocean_sketch.png`; the sketch then moves whole to slide 19 ("What is in the water?") beside `pace_moana.png`.  "Infinite templates" stays with the AWOC slide-10 figure (same content as Fig. 10, in two steps).  ΔBIC backup = Fig. 6 (p. 10).
     - Default: as above.
-    - A:
+    - A: Use your Default;  I may change it later
 
 **I. Tooling**
 
 33. **Credits in the notes (Q5).**  The builder draws `source` on the slide and QA warns (fails with `--strict`) when a figure has no source line.  I would add a plan-level flag `CREDITS_IN_NOTES = True`: the source text goes into the notes only and the warning is suppressed; with a test in `sms_outreach/tests/`.
     - Default: yes.
-    - A:
+    - A: Use your Default
 34. **Equation font.**  matplotlib mathtext offers `dejavusans` (sans, close to Roboto) or `cm` (Computer Modern, like the LaTeX PNGs in the two decks).  Mixing lifted LaTeX PNGs with new sans ones on one slide would look odd, and the lifted equations are short (DM integral, Gordon relation, Lee+1999 IOP model).
     - Default: `dejavusans` everywhere, and re-render the lifted equations too, so Q3(c) falls away.  One script, `scripts/fig_equations.py`, one PNG per equation.
-    - A:
+    - A: Use `dejavusans` everywhere, but don't bother to re-render the lifted equations
 35. **PATH equation (Q11).**  I would render Aggarwal et al. 2021's form in two lines: P(O_i | x) = P(O_i) p(x | O_i) / p(x), with P(O_i) ∝ a prior from galaxy magnitude (number counts) and P(U) for "unseen host", and p(x | O_i) the offset distribution convolved with the localization error.
     - Default: as above, cited to Aggarwal et al. 2021.
-    - A:
+    - A: Use your Default
 36. **Timing script (Q19).**  `bing/scripts/fit_Rrs.py` and `bing/fitting/l23.py` do the fits.  I would time one L23 spectrum with the paper's PACE k = 5 setup (LM start, emcee, 75,000 steps) on this Mac, report seconds per spectrum and CPU-years per day, and quote PACE at about 10⁸ cloud-free ocean pixels per day (ocean area / (1.2 km)², 2-day repeat, half cloud).  Correct that number if you have a better one.
     - Default: as above; the script writes its numbers to a small JSON that the figure script reads.
-    - A:
+    - A: Use your Default
 37. **Background slides (Q8).**  You have figures for all three eras.  Three slides, each a red placeholder figure (labelled "your figure: KS / χ² (thesis)", "Bayesian / HMC / GP (astronomy)", "deep learning + Bayesian (ocean)") beside three bullets, you drop the figures in.  The main deck grows to 42 slides.
     - Default: yes.
-    - A:
+    - A: Use your Default
 38. **Run sheet.**  45 min of slides, 15 min of discussion in three slots (after 17, 32 and 37).  Edit the minutes or answer "go".
 
 | Slides | Section | Min | Ends at |
@@ -366,7 +370,7 @@ Every question has a default.  The plan (Q26) stands; round 2 settles the last t
 | 39 | What do you recommend? | 5 | 0:56 |
 | 40–42 | ROMS, gliders, close | 4 | 1:00 |
 
-   - A:
+   - A:  This looks good
 
 **J. What I need from you**
 
@@ -729,3 +733,26 @@ Two Claude Fable 5.1 subagents reviewed the B4 deck, read-only: one looked at ev
 *Final placeholder list.*  Slides 2, 3, 4: `bg_physics.png`, `bg_astronomy.png`, `bg_ocean.png` (your figures).
 
 *Left for you* (also in `run_sheet.md`).  The three background figures; humor and animations; sharing the README Doc; the telescope and outrigger photo credits to confirm; two numbers to glance at (Baptista et al. 2024's "16 FRBs" on backup slide 46, from your NU deck; the fact check recalled ~21); and the kanji in the author line, which LibreOffice cannot render but Google Slides should.
+
+### 2026-10-17 (Build #6: round-2 answers reviewed against the deck)
+
+You filled in the round-2 answers (Q27–Q38) that had been blank when Builds #1–#5 ran; those builds took a blank as the default, as the round said.  I checked each answer against the built deck and plan with a short script (session scratchpad only).  Every answer is already honoured, so no file changed except this one and no deck was rebuilt.  No git commands were run.
+
+| Q | Answer | In the deck |
+|---|---|---|
+| 27 | default (ROMS) | slide 40 "A model ocean constrained by data" |
+| 28 | (a) for now | `roms_sst_nowcast.png`, the 13 Oct analysis, downloaded from the site |
+| 29 | default (may change) | slide 41 with the CUGN map, Rudnick et al. 2017, Moore et al. 2018, BOONUS |
+| 30 | default | `cugn_lines.png` via cartopy and Natural Earth |
+| 31 | default | Hoffmann Fig. 1 (MCMC), Fig. 3 (Results), Fig. 2 (backup) |
+| 32 | default (may change) | BING Fig. 10 (priors), Fig. 4 (degeneracy), Fig. 6 (backup); Fig. 8 harvested as a spare |
+| 33 | default | `CREDITS_IN_NOTES = True`; no Source box on any slide; every figure slide's notes carry its credit |
+| 34 | `dejavusans`, do not re-render the lifted equations | see below |
+| 35 | default | PATH equation on slide 11, Aggarwal et al. 2021 |
+| 36 | default | `bing_timing.json`, `bing_cost.png`, 10⁸ spectra a day |
+| 37 | default | three placeholders on slides 2–4 |
+| 38 | looks good | three discussion slots, 42 main slides, `run_sheet.md` |
+
+*Q34.*  All seven equations on the deck are new `dejavusans` renders; no equation image was lifted from the two decks, so there was nothing to re-render and nothing to swap.  If you would rather see the original LaTeX images for the Gordon relation and the Lee+1999 IOP model (AWOC slides 6, 7, 13) or the DM integral (NU slide 15), say so in #7 and they can be lifted in place of `eq_gordon.png`, `eq_iop_model.png` and the top line of `eq_dm_sum.png`.
+
+*Current deck.*  `talks/ucsc_stats_2026/slides/UCSC_Stats_2026.pptx` (B5: 52 slides, strict QA passed, 3 placeholders) and its PDF are in `~/Google Drive/My Drive/Oceanography/Talks/2026/UCSC_Stats/`.  #7 is ready for your edit list.
