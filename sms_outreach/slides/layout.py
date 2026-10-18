@@ -17,6 +17,7 @@ Our rules:
 All lengths are inches.  A box is (x, y, w, h).
 """
 import math
+import re
 from pathlib import Path
 
 from PIL import ImageFont
@@ -46,6 +47,13 @@ FIG_BULLET_SPLIT = 0.66     # figure width fraction when a figure shares the sli
 
 ROBOTO = Path(__file__).resolve().parent / "data" / "Roboto.ttf"
 _FONTS = {}
+MARKUP = re.compile(r"[_^]\{([^}]*)\}")   # H_{0}, 10^{8}: subscript / superscript markup (deck.py renders it)
+
+
+def plain(text):
+    """Created by JXP and Claude. `text` with the subscript / superscript
+    markup removed (what the audience reads, for width estimates)."""
+    return MARKUP.sub(r"\1", text)
 
 
 def text_width(text, pt, weight="Regular"):
@@ -55,7 +63,7 @@ def text_width(text, pt, weight="Regular"):
         font = ImageFont.truetype(str(ROBOTO), 400)
         font.set_variation_by_name(weight)
         _FONTS[weight] = font
-    return _FONTS[weight].getlength(text) / 400 * pt / 72
+    return _FONTS[weight].getlength(plain(text)) / 400 * pt / 72
 
 
 def title_size(title):

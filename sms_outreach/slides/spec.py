@@ -7,9 +7,11 @@ A plan file (e.g. talks/wmko_2026/slides/plan.py) defines:
     FIG_DIRS   : list of directories searched, in order, for figure files
     OUTPUT     : path of the .pptx to write
     SLIDES     : list of Slide
-and optionally MAX_SLIDES (main-deck limit checked by QA) and
+and optionally MAX_SLIDES (main-deck limit checked by QA),
 CREDITS_IN_NOTES (True: a slide's `source` goes into the speaker notes only,
-not onto the slide, and QA does not ask for source lines).
+not onto the slide, and QA does not ask for source lines) and FOOTER (text
+that replaces the master's "UC SANTA CRUZ | Science" logo on every slide).
+Text fields may use `X_{y}` / `X^{y}` for subscripts / superscripts.
 
 Kinds
 -----

@@ -12,7 +12,9 @@ Build (ocean14 env, from the repo root):
 Figure files are looked up in FIG_DIRS; a file that does not exist yet is
 drawn as a red PLACEHOLDER box (B2 harvests, B3 draws).  Credits go into the
 speaker notes, not onto the slides (CREDITS_IN_NOTES, Q5).  Pairs are sea on
-the LEFT, stars on the RIGHT where that applies.
+the LEFT, stars on the RIGHT where that applies.  Slide text uses the
+builder's markup for subscripts and superscripts (H_{0}, 10^{8}); the notes
+are plain text (H₀).
 """
 from pathlib import Path
 
@@ -25,6 +27,7 @@ FIG_DIRS = [TALK / "figures", TALK.parent / "wmko_2026" / "figures"]
 OUTPUT = HERE / "UCSC_Stats_2026.pptx"
 MAX_SLIDES = 42
 CREDITS_IN_NOTES = True
+FOOTER = "UCSC Stats 2026-10-19"      # replaces the master's "UC SANTA CRUZ | Science" logo (B7)
 
 S_INTRO, S_FRB, S_BING, S_OTHER, S_CLOSE, S_BACKUP = "Intro", "FRBs", "BING", "Other", "Close", "Backup"
 
@@ -35,6 +38,7 @@ BING = "Prochaska & Frouin 2025, Biogeosciences 22, 4705"
 KRAMER = "Kramer, Siegel, Maritorena & Catlett 2022, RSE 270, 112879 (CC BY)"
 ROMS = "UCSC Ocean Modeling and Data Assimilation group (C. Edwards, A. Moore), oceanmodeling.ucsc.edu, CC BY 3.0"
 CLAUDE = "J. X. Prochaska & Claude"
+PAB = "PAB (PACE × BGC-Argo match-ups), A. James, J. X. Prochaska et al. 2026, in prep."
 
 SLIDES = [
     # ------------------------------------------------------------- intro
@@ -68,7 +72,7 @@ SLIDES = [
                    "The same questions in a new ocean: speed, priors, evidence"],
           notes="As an oceanographer since 2020: deep learning on satellite imagery, and then Bayesian inversion "
                 "of ocean-colour spectra, which brought back the same questions. (Figure by JXP.)"),
-    Slide("Goals for today", section=S_INTRO,
+    Slide("Outline for today", section=S_INTRO,
           subtitle="Two problems, one request",
           bullets=["Two problems, one shape: forward model, likelihood, MCMC",
                    "What we have: public data, public code, a working but slow method",
@@ -78,10 +82,10 @@ SLIDES = [
                 "both are too slow or too prior-dependent. I will stop three times for discussion. The README "
                 "has the equations and the links to the code (github.com/FRBs/zdm, github.com/ocean-colour/bing)."),
     # ------------------------------------------------------------- FRBs
-    Slide("Part I: Fast radio bursts", kind=DIVIDER, section=S_FRB,
+    Slide("Part I: Population modeling of Fast Radio Bursts (FRBs)", kind=DIVIDER, section=S_FRB,
           notes="Part I. Fast radio bursts: millisecond flashes of radio waves from distant galaxies."),
     Slide("A multi-pronged attack on unsolved problems", section=S_FRB,
-          subtitle="The sources, the baryons, and H0 (the normalization) from one population model",
+          subtitle="The sources, the baryons, and H_{0} (the normalization) from one population model",
           figures=[Fig("nu_lorimer_burst.png", caption="The sources: rates, energies, repetition"),
                    Fig("nu_macquart_2026.png", caption="The baryons: DM vs. z counts every electron")],
           source=f"Left: Lorimer et al. 2007, Science 318, 777, via {NU}; right: localized FRBs to 2026, compiled by J. X. Prochaska, via {NU}",
@@ -90,7 +94,7 @@ SLIDES = [
                 "times frequency to the minus two. Right: the Macquart relation in 2026, dispersion measure "
                 "against redshift for about 100 localized bursts. Three questions ride on one population model: "
                 "what the sources are (rates, energies, repetition), how many baryons sit in the cosmic web (the "
-                "slope), and the expansion rate H0 (the normalization, which scales as 1/H0 at fixed Ω_b h²)."),
+                "slope), and the expansion rate H₀ (the normalization, which scales as 1/H₀ at fixed Ω_b h²)."),
     Slide("It starts with a radio telescope", section=S_FRB,
           subtitle="Six telescopes, six beams, six thresholds",
           figures=[Fig("telescopes_montage.png", caption="MeerKAT, CHIME, ASKAP, Parkes"),
@@ -105,8 +109,8 @@ SLIDES = [
           figures=[Fig("eq_dm_sum.png")],
           bullets=["DM measured to 0.1%",
                    "The Milky Way term is modeled (NE2001), not measured",
-                   "DM_cosmic at fixed z is skewed; its scatter is set by clumpiness F",
-                   "DM_host: unknown, lognormal"],
+                   "DM_{cosmic} at fixed z is skewed; its scatter is set by clumpiness F",
+                   "DM_{host}: unknown, lognormal"],
           source=f"NE2001 map (Cordes & Lazio) via {NU}; equation rendered by {CLAUDE}",
           notes="Every burst gives a dispersion measure, the column density of free electrons, measured to a "
                 "tenth of a percent. The catch: DM is a sum. The Milky Way part comes from a Galactic model "
@@ -151,7 +155,7 @@ SLIDES = [
                 "jointly, marginalizing over z for the bursts without one."),
     Slide("Population modeling: the model", section=S_FRB,
           subtitle="An inhomogeneous Poisson process on the (z, DM) plane, per survey",
-          figures=[Fig("eq_lambda.png", caption="Rate density λ_s(z, DM | θ): five factors"),
+          figures=[Fig("eq_lambda.png", caption="Rate density λ_{s}(z, DM | θ): five factors"),
                    Fig("nu_dm_cliff.png", caption="p(DM, z) for one survey: the 'DM cliff'")],
           source=f"Heat map: zdm (James et al. 2022) via {NU}; equation rendered by {CLAUDE}",
           notes="For survey s the bursts are an inhomogeneous Poisson process on the (z, DM) plane. The rate "
@@ -160,12 +164,12 @@ SLIDES = [
                 "survey's detection probability, which is the fraction of the energy function (power law with "
                 "slope gamma and cutoff E_max) above threshold, averaged over beam and burst width. About 12 "
                 "parameters. Right: the resulting p(DM, z) for one survey; the sharp edge, the 'DM cliff', is "
-                "set by H0 and the scatter in DM_cosmic."),
+                "set by H₀ and the scatter in DM_cosmic."),
     Slide("Population modeling: the likelihood", section=S_FRB,
           subtitle="Localized bursts enter in 2-D, DM-only bursts marginalized over z",
           figures=[Fig("eq_lnL_frb.png")],
-          bullets=["Localized burst: the 2-D density λ_s(z_i, DM_i) / Λ_s",
-                   "DM-only burst: the z-marginal, ∫ λ_s dz / Λ_s",
+          bullets=["Localized burst: the 2-D density λ_{s}(z_{i}, DM_{i}) / Λ_{s}",
+                   "DM-only burst: the z-marginal, ∫ λ_{s} dz / Λ_{s}",
                    "Poisson terms for counts and for repeaters",
                    "The overall rate is profiled out"],
           source=f"Equation rendered by {CLAUDE}",
@@ -175,13 +179,14 @@ SLIDES = [
                 "process with a power-law distribution of rates), plus a signal-to-noise term per burst. The "
                 "overall rate constant is profiled out."),
     Slide("Population modeling: MCMC", section=S_FRB,
-          subtitle="emcee, 12 parameters, uniform priors: one week on a cluster",
+          subtitle="An affine-invariant sampler (emcee), 12 parameters, uniform priors: a week per fit",
           figures=[Fig("hoffmann_fig1_corner.png")],
           source=f"Corner plot: Fig. 1 of {HOFF}",
           notes="How it is done today: the rate density is evaluated on a 500 by 1400 (z, DM) grid for every "
-                "survey and rebuilt at every likelihood call. emcee with 40 walkers and 2000 steps took about a "
+                "survey and rebuilt at every likelihood call. The sampler is emcee, an affine-invariant ensemble "
+                "sampler (Goodman & Weare 2010): 40 walkers and 2000 steps took about a "
                 "week on the OzSTAR cluster; the paper says more steps are not computationally feasible. The "
-                "corner plot (Hoffmann et al. 2026, Fig. 1) shows 11 of the 12 parameters (H0 is omitted from "
+                "corner plot (Hoffmann et al. 2026, Fig. 1) shows 11 of the 12 parameters (H₀ is omitted from "
                 "the plot; its posterior is its prior). n_sfr against alpha, and R_min against R_gamma, are "
                 "strongly degenerate."),
     Slide("Results to date", section=S_FRB,
@@ -191,16 +196,16 @@ SLIDES = [
           source=f"Left: Fig. 3 of {HOFF}; right: via {NU}",
           notes="What the fit buys: the model reproduces the CHIME DM distribution (KS p = 0.9 for catalog 1) "
                 "and predicts the number of repeating sources per survey (Hoffmann et al. 2026, Table 6). It "
-                "constrains the source evolution and energy function. H0 is limited by its prior (restricted to "
+                "constrains the source evolution and energy function. H₀ is limited by its prior (restricted to "
                 "the Planck–SH0ES range), and a week per fit means we cannot explore model variants freely."),
     Slide("Open challenges", section=S_FRB,
           subtitle="Speed, degeneracy, model choice, selection",
           bullets=["Speed: a week per fit; emulators, surrogates, fewer likelihood calls",
-                   "Degeneracies: H0 with E_max, n_sfr with α; prior-sensitive posteriors",
+                   "Degeneracies: H_{0} with E_{max}, n_{sfr} with α; prior-sensitive posteriors",
                    "Model choice: seven energy-function forms; evidence or information criteria?",
                    "Selection: scattered bursts fall below threshold; how many?"],
           notes="Four open challenges. Speed: each likelihood call rebuilds the grids, so a fit takes a week. "
-                "Degeneracies: H0 with the maximum energy, n_sfr with alpha; several posteriors (H0, R_max) follow their priors. "
+                "Degeneracies: H₀ with the maximum energy, n_sfr with alpha; several posteriors (H₀, R_max) follow their priors. "
                 "Model choice: zdm implements seven luminosity-function forms and only one has been fit; we "
                 "compare with BIC at best. Selection: scattering broadens bursts below threshold and the "
                 "incompleteness is poorly known."),
@@ -217,52 +222,60 @@ SLIDES = [
           notes="Part II. From the colour of the ocean to what is in the water."),
     Slide("What is in the water?", section=S_BING,
           subtitle="Ocean colour encodes phytoplankton, dissolved organics and particles",
-          figures=[Fig("ocean_sketch_forward.png", caption="The forward problem: sun, sea, satellite"),
-                   Fig("pace_moana.png", caption="PACE: phytoplankton from space")],
+          figures=[Fig("ocean_sketch_forward.png")],
           bullets=["Chlorophyll (phytoplankton), coloured dissolved organic matter, particles",
+                   "The forward problem: sun, sea, satellite",
+                   "The inverse problem: from the colour back to the water",
                    "Stretch goal: which phytoplankton (functional types)"],
-          source=f"Sketch: {CLAUDE}; PACE MOANA map: NASA PACE / talks/wmko_2026",
+          source=f"Sketch: {CLAUDE}",
           notes="The colour of the ocean is set by what absorbs and scatters light in the upper water: "
                 "phytoplankton (chlorophyll), coloured dissolved organic matter (CDOM) and particles. These "
                 "matter for the carbon cycle. The goal is to infer their concentrations, and ideally which "
-                "phytoplankton, from a reflectance spectrum. Left: the forward problem (sun, sea, satellite) and "
-                "the inverse problem; right: a PACE map of phytoplankton groups."),
+                "phytoplankton, from a reflectance spectrum. The sketch is the forward problem (sun, sea, "
+                "satellite); we solve the inverse one. A PACE map of phytoplankton groups comes later (slide 36)."),
     Slide("PACE: a colour spectrum per square kilometre", section=S_BING,
-          subtitle="Millions of spectra a day, each with its own error bars",
-          figures=[Fig("awoc_pace_fit_rrs.png")],
-          bullets=["R_rs(λ): light leaving the water over incoming sunlight",
-                   "100+ bands, 340–890 nm, ~1 km pixels",
-                   "The globe every 1–2 days: ~10⁸ ocean spectra a day",
-                   "Per-wavelength uncertainties supplied with the data"],
-          source=f"Real PACE OCI spectrum with BING fit via {AWOC}",
+          subtitle="~10^{8} spectra a day, each with its own error bars",
+          figures=[Fig("pab_fit_median.png")],
+          bullets=["R_{rs}(λ): the colour of the water, 100+ bands, ~1 km pixels",
+                   "The globe every 1–2 days, with per-wavelength uncertainties"],
+          source=f"Real PACE OCI spectrum at BGC-Argo float 5906450 (cycle 140, 29 Aug 2025) with its BING 2.0 fit, "
+                 f"from {PAB}; drawn by {CLAUDE} (scripts/fig_pab_fit.py)",
           notes="NASA's PACE satellite (launched 2024) measures the remote-sensing reflectance, light leaving the "
                 "water over incoming sunlight, in more than 100 bands from 340 to 890 nm, at about 1 km, over the "
                 "whole globe every one to two days. That is of order a hundred million ocean spectra a day, each "
-                "delivered with per-wavelength uncertainties. Shown: one real PACE spectrum with its error bars "
-                "and a BING fit."),
+                "delivered with per-wavelength uncertainties. Shown: a real PACE spectrum over a BGC-Argo float "
+                "(our PACE × Argo match-up project, PAB, ~16,000 match-ups) with its supplied error bars, the "
+                "BING 2.0 fit (400–700 nm, 136 bands) and the residuals in units of sigma (the bands near 600 nm "
+                "are absent from this fit)."),
     Slide("Strong systematics", section=S_BING,
-          subtitle="Coherent residuals at 400–520 nm: the atmospheric correction?",
-          figures=[Fig("awoc_pace_fit_rrs.png")],
+          subtitle="The residuals are correlated over tens of nm: a diagonal likelihood ignores that",
+          figures=[Fig("pab_fit_productive.png")],
           bullets=["The atmosphere contributes ~90% of the light at the sensor",
-                   "Its removal leaves correlated residuals the model cannot absorb",
-                   "χ²_ν = 1.44 for a 5-parameter fit"],
-          source=f"Via {AWOC}",
-          notes="Fit the real spectrum and the reduced chi-squared is 1.44. The residuals are not noise: a "
-                "coherent run at 400 to 520 nm. The atmosphere contributes about 90 percent of the light at the "
-                "sensor, and the correction that removes it leaves correlated errors our diagonal likelihood "
-                "cannot describe."),
+                   "Its removal (much improved since 2025) still leaves coherent residuals",
+                   "χ²_{ν} = 0.32: the error bars are too large, and the errors are correlated"],
+          source=f"Real PACE OCI spectrum at BGC-Argo float 5907252 (cycle 5, 13 Apr 2026) with its BING 2.0 fit, "
+                 f"from {PAB}; drawn by {CLAUDE} (scripts/fig_pab_fit.py)",
+          notes="A productive-water spectrum (float chlorophyll 0.32 mg per cubic metre) from the same match-up "
+                "set. The atmosphere contributes about 90 percent of the light at the sensor; the correction "
+                "that removes it has improved a lot in the last year, but the residuals are still not white "
+                "noise: coherent runs over tens of nanometres (400–480, 500–520, 540–580, 680–700 nm). The "
+                "reduced chi-squared is 0.32 with the supplied uncertainties, so the error bars are too large "
+                "while the errors are correlated; our diagonal Gaussian likelihood describes neither."),
     Slide("Poorly measured errors", section=S_BING,
-          subtitle="Residuals beyond 600 nm are many sigma: the error bars are wrong",
-          figures=[Fig("awoc_pace_fit_rrs.png", caption="Residuals in units of σ"),
-                   Fig("awoc_pab_dbbp.png", caption="PACE vs. float backscattering: a systematic offset")],
-          source=f"Left via {AWOC}; right: A. James et al. 2026 (in prep.), PACE × BGC-Argo match-ups, via {AWOC}",
-          notes="Beyond 600 nm the residuals are many sigma: the supplied uncertainties are too small there. And "
-                "against independent in-water measurements (BGC-Argo floats, James et al. 2026), PACE "
-                "backscattering is systematically high almost everywhere. Calibration, atmospheric correction "
-                "and the error model all need work before the statistics can be trusted."),
+          subtitle="χ²_{ν} ≈ 0.2 with the supplied σ; against floats, b_{bp} scatters by 0.65 dex",
+          figures=[Fig("pab_fit_median.png", caption="The median match-up: χ²_{ν} = 0.20"),
+                   Fig("pab_bbp_scatter.png", caption="PACE vs. float b_{bp}(700): median ratio 1.15")],
+          source=f"Left: as slide 22; right: satellite vs. float b_bp over 15,274 match-ups, {PAB}",
+          notes="Two signs that the error model is wrong. Left: the median match-up fits with reduced "
+                "chi-squared 0.20, so the supplied per-wavelength uncertainties are about twice too large, "
+                "while the residuals are correlated. Right: against independent in-water measurements "
+                "(BGC-Argo floats, 15,274 match-ups), the retrieved backscattering at 700 nm has a median "
+                "satellite-to-float ratio of 1.15 but a scatter of 0.65 dex and a Spearman correlation of only "
+                "0.41. Calibration, atmospheric correction and the error model all need work before the "
+                "statistics can be trusted. (This slide may be dropped if time is short.)"),
     Slide("The forward model", section=S_BING,
           subtitle="Absorption and backscattering set the colour (Gordon et al. 1988)",
-          figures=[Fig("eq_gordon.png", caption="R_rs from u = b_b / (a + b_b)"),
+          figures=[Fig("eq_gordon.png", caption="R_{rs} from u = b_{b} / (a + b_{b})"),
                    Fig("eq_iop_model.png", caption="Non-water parts: 2–5 parameters")],
           source=f"Equations rendered by {CLAUDE}",
           notes="The forward model is simple. Reflectance is a quadratic in u = b_b over (a + b_b), the "
@@ -272,7 +285,7 @@ SLIDES = [
                 "slope S_dg), a phytoplankton template with an amplitude, and a power law for particle "
                 "backscattering (amplitude and exponent beta)."),
     Slide("A physical degeneracy", section=S_BING,
-          subtitle="Scale a and b_b together by 100×: the same R_rs. Only the water terms object.",
+          subtitle="Scale a and b_{b} together by 100×: the same R_{rs}. Only the water terms object.",
           figures=[Fig("bing_fig4_degeneracy.png")],
           source=f"Fig. 4 of {BING}",
           notes="The crux (Fig. 4 of the paper). Reflectance depends on a and b_b only through their ratio, so scaling both by the "
@@ -280,48 +293,53 @@ SLIDES = [
                 "do not scale, break the symmetry, and they are small where the signal is. So absorption and "
                 "backscattering are not separately identifiable without priors, and the data support only a "
                 "few non-water parameters."),
-    Slide("An \"infinite\" number of templates, I", section=S_BING,
-          subtitle="Three different models fit one spectrum equally well",
-          figures=[Fig("awoc_three_models_rrs.png")],
-          bullets=["k = 5 (ours): χ²_ν = 0.80",
-                   "GIOP (NASA's operational model): χ²_ν = 1.01",
-                   "GSM: χ²_ν = 1.13",
-                   "Very different assumptions, same goodness of fit"],
+    Slide("Biology makes almost any a(λ) possible", section=S_BING,
+          subtitle="Dozens of pigments, cell sizes and packaging: no finite set of templates",
+          figures=[Fig("pigment_absorption.png")],
+          bullets=["Each pigment has its own absorption spectrum; a cell holds many",
+                   "Cell size and packaging reshape a_{ph}(λ); particles of every size set b_{b}(λ)",
+                   "So a(λ) and b_{b}(λ) can take almost any shape: the template is a choice"],
+          source=f"Pigment-specific absorption spectra: Bricaud et al. 2004, JGR 109, C11010 (via ocpy); drawn by {CLAUDE}",
+          notes="Why there is no right template. Phytoplankton carry dozens of pigments, each with its own "
+                "absorption spectrum: chlorophyll a peaks near 440 and 675 nm, the accessory chlorophylls and "
+                "carotenoids (fucoxanthin, peridinin, zeaxanthin and others) fill 450–550 nm. Shown: seven in "
+                "vivo pigment-specific spectra from Bricaud et al. 2004. Mixtures of pigments, cell size and the "
+                "package effect reshape the phytoplankton absorption, and particles of every size and "
+                "composition set the backscattering, so almost any absorption and backscattering spectrum is "
+                "biologically possible. Every retrieval model picks a template and a few parameters; the choice "
+                "is a prior."),
+    Slide("…so very different models fit equally well", section=S_BING,
+          subtitle="Equal χ², but a_{ph}(440) = 0.23 m⁻¹ true vs. ~0.05 for GIOP: the template decides",
+          figures=[Fig("awoc_three_models_rrs.png", caption="k = 5 (χ²_{ν} 0.80), GIOP (1.01), GSM (1.13)"),
+                   Fig("awoc_three_models_aph.png", caption="Phytoplankton absorption: >400% apart")],
           source=f"Via {AWOC} (Fig. 10 of {BING})",
           notes="Fit one simulated PACE spectrum with our five-parameter model, NASA's operational GIOP and the "
-                "GSM model. All three have reduced chi-squared near one. Different priors and fixed parameters, "
-                "indistinguishable fits."),
-    Slide("An \"infinite\" number of templates, II", section=S_BING,
-          subtitle="…and they disagree about what is in the water",
-          figures=[Fig("awoc_three_models_bb.png", caption="Backscattering: different amplitude and slope"),
-                   Fig("awoc_three_models_aph.png", caption="Phytoplankton absorption: >400% apart")],
-          bullets=["Equal χ²; a_ph(440) = 0.23 m⁻¹ true vs. ~0.05 for GIOP"],
-          source=f"Via {AWOC} (Fig. 10 of {BING})",
-          notes="Same figure, other panels. The retrieved backscattering curves differ in amplitude and slope "
-                "(30 to 40 percent apart), and the phytoplankton absorption at 440 nm by more than 400 percent: "
-                "true 0.23 per metre, GIOP about 0.05, GSM in between with the wrong shape. The spectrum cannot "
-                "tell them apart; the priors decide."),
+                "GSM model: reduced chi-squared 0.80, 1.01 and 1.13, indistinguishable fits (left). Their "
+                "phytoplankton absorption at 440 nm differs by more than 400 percent (right): true 0.23 per "
+                "metre, GIOP about 0.05, GSM in between with the wrong shape; the backscattering curves differ "
+                "in amplitude and slope (backup slide). The spectrum cannot tell the templates apart; the "
+                "template, i.e. the prior, decides."),
     Slide("Standard MCMC", section=S_BING,
-          subtitle="emcee per spectrum: 75,000 steps; nested models compared by BIC",
+          subtitle="An affine-invariant sampler per spectrum: 75,000 steps; nested models by BIC",
           figures=[Fig("awoc_corner.png", caption="Posterior of the 5 parameters"),
                    Fig("eq_lnL_gauss.png", caption="Gaussian likelihood; BIC from the LM fit")],
           source=f"Corner plot via {AWOC}; equation rendered by {CLAUDE}",
           notes="The inference is standard: an independent Gaussian likelihood with the supplied per-wavelength "
                 "errors, log-uniform priors on amplitudes, uniform on S_dg (0.01 to 0.02 per nm) and beta (0 to "
-                "2), emcee with 75,000 steps keeping the last 7,000, and nested models (k = 2 to 5) compared by "
+                "2), the affine-invariant ensemble sampler emcee with 75,000 steps keeping the last 7,000, and nested models (k = 2 to 5) compared by "
                 "BIC from a Levenberg–Marquardt best fit. The corner plot shows the degeneracies: the "
                 "phytoplankton amplitude against the dissolved amplitude and slope."),
     Slide("Expensive for one spectrum. Operational?", section=S_BING,
           subtitle="29 s per spectrum × 10⁸ spectra a day ≈ 93 CPU-years per day",
           figures=[Fig("bing_cost.png", placeholder="NEW (B3): cost of per-pixel MCMC at PACE scale")],
           source=f"Timing: talks/ucsc_stats_2026/scripts/time_bing_fit.py on an Apple M5 Max, one core ({CLAUDE})",
-          notes="Measured this week on one core of a laptop: the Levenberg–Marquardt start takes 3 ms, the emcee "
-                "run (16 walkers, 75,000 steps plus burn-in, 1.2 million likelihood calls at 24 microseconds "
+          notes="Measured this week on one core of a laptop: the Levenberg–Marquardt start takes 3 ms, the "
+                "affine-invariant sampler (emcee; 16 walkers, 75,000 steps plus burn-in, 1.2 million likelihood calls at 24 microseconds "
                 "each) takes 29 seconds. PACE delivers of order a hundred million cloud-free ocean spectra a "
                 "day, so per-pixel MCMC costs about 93 CPU-years per day, or 34,000 cores running flat out. "
                 "That is why the operational products use point estimates with linearized error propagation, not posteriors."),
     Slide("Priors break the degeneracy, and bias the answer", section=S_BING,
-          subtitle="Fix the slope S_dg differently and the phytoplankton changes fourfold",
+          subtitle="Fix the slope S_{dg} differently and the phytoplankton changes fourfold",
           figures=[Fig("bing_fig10_priors.png")],
           source=f"Fig. 10 of {BING}",
           notes="Priors are the only way to break the degeneracy, and they bias the answer. GIOP and GSM fix the "
@@ -375,7 +393,7 @@ SLIDES = [
     Slide("PCA of the spectrum (Lange et al. 2020)", section=S_OTHER,
           subtitle="Project each spectrum onto a fixed basis, regress the loadings on cell counts",
           figures=[Fig("moana_pc_loadings.png")],
-          bullets=["Standardize R_rs(λ), project onto 6 principal components",
+          bullets=["Standardize R_{rs}(λ), project onto 6 principal components",
                    "Multiple linear regression of each group on the loadings (plus SST)",
                    "Re-implemented and retrained: recovers NASA's basis"],
           source="MOANA PCA basis, re-derived in EPFT-UP (J. X. Prochaska & Claude, 2026)",
@@ -393,7 +411,7 @@ SLIDES = [
                 "sharpens with each derivative. Cross-validated R-squared from 0.37 to 0.72 (backup slide)."),
     Slide("What do you recommend?", section=S_OTHER,
           subtitle="Five minutes: composition from a spectrum",
-          bullets=["State of the art: PCA of R_rs (or of its second derivative) → linear regression",
+          bullets=["State of the art: PCA of R_{rs} (or of its second derivative) → linear regression",
                    "A spectrum has 100+ bands but supports 3 (multispectral) to 4–5 (PACE) parameters",
                    "Is there a better-posed way to get composition, with uncertainties?"],
           notes="Third discussion slot. PCA plus regression is the state of the art, and it works to a point. But "
@@ -436,16 +454,17 @@ SLIDES = [
                 "public repositories, and the README with the equations. Thank you."),
     # ------------------------------------------------------------- backup
     Slide("Backup", kind=DIVIDER, section=S_BACKUP, backup=True,
-          notes="Backup slides: the 2020 Macquart relation, H0 and the DM cliff, F and feedback, the ΔBIC "
-                "forecast, scattering selection, phytoplankton upper limits, repetition posteriors."),
+          notes="Backup slides: the 2020 Macquart relation, H₀ and the DM cliff, F and feedback, the ΔBIC "
+                "forecast, scattering selection, phytoplankton upper limits, the three-model backscattering "
+                "panel, repetition posteriors."),
     Slide("The Macquart relation (2020)", section=S_BACKUP, backup=True,
           figures=[Fig("nu_macquart_2020.png")],
           source=f"Macquart et al. 2020, Nature 581, 391, via {NU}",
           notes="The original detection of the missing baryons with five localized ASKAP FRBs."),
-    Slide("H0 and the DM cliff", section=S_BACKUP, backup=True,
+    Slide("H_{0} and the DM cliff", section=S_BACKUP, backup=True,
           figures=[Fig("nu_h0_contours.png")],
           source=f"zdm (James et al. 2022) via {NU}",
-          notes="p(DM, z) contours for H0 = 60, 70, 80: the DM cliff moves with H0, and with E_max."),
+          notes="p(DM, z) contours for H₀ = 60, 70, 80: the DM cliff moves with H₀, and with E_max."),
     Slide("F and feedback", section=S_BACKUP, backup=True,
           figures=[Fig("nu_baptista_F.png", caption="Posterior on F from 16 FRBs"),
                    Fig("nu_connor_feedback.png", caption="DSA-110: low scatter, strong feedback")],
@@ -466,6 +485,11 @@ SLIDES = [
           source=f"Fig. 11(a) of {BING}",
           notes="Retrieved against true a_ph(440) on simulated PACE spectra: bias −21%, MAE 40%; most of the "
                 "low-chlorophyll spectra give only an upper limit (light blue)."),
+    Slide("Three models, one spectrum: backscattering", section=S_BACKUP, backup=True,
+          figures=[Fig("awoc_three_models_bb.png")],
+          source=f"Via {AWOC} (Fig. 10 of {BING})",
+          notes="The b_b panel of the three-model figure: the k = 5, GIOP and GSM retrievals differ in amplitude "
+                "and slope (30 to 40 percent apart) with equal chi-squared."),
     Slide("Kramer et al. 2022: retrieved vs. measured pigments", section=S_BACKUP, backup=True,
           figures=[Fig("kramer_fig6_results.png")],
           source=f"Fig. 6 (A, B) of {KRAMER}",

@@ -10,7 +10,8 @@ Sources
   slide number and shape id; the deck's own crop rectangle is applied);
 - figure crops from the three papers in context/papers/ (PyMuPDF, boxes as
   page fractions, origin top-left, rendered at DPI);
-- copies of figures made elsewhere (wmko_2026, EPFT-UP);
+- copies of figures made elsewhere (wmko_2026, EPFT-UP, the PAB report site's
+  representative BING 2.0 fits to real PACE spectra at BGC-Argo floats);
 - the UCSC ROMS 4D-Var SST analysis downloaded from oceanmodeling.ucsc.edu
   (CC BY 3.0; the newest date that exists, searching back from today).
 
@@ -47,6 +48,9 @@ AWOC_VIA = "via AWOC_2025.pptx (J. X. Prochaska, 2025)"
 HOFF = "Hoffmann, James, Prochaska, Pastor-Marazuela, Sharma & Connor 2026, arXiv:2609.27282"
 BING = "Prochaska & Frouin 2025, Biogeosciences 22, 4705, doi:10.5194/bg-22-4705-2025 (CC BY 4.0)"
 KRAMER = "Kramer, Siegel, Maritorena & Catlett 2022, Remote Sens. Environ. 270, 112879, doi:10.1016/j.rse.2021.112879 (CC BY)"
+PAB_FIGS = Path("~/Oceanography/python/PAB/report_site/_static/figures").expanduser()
+PAB_CREDIT = ("BING 2.0 fit to a real PACE OCI (L2 AOP V3.2) spectrum at a BGC-Argo float, PAB v2 "
+              "representative fit (A. James, J. X. Prochaska et al. 2026, in prep.; PAB report site)")
 ROMS_URL = "https://oceanmodeling.ucsc.edu/ccsnrt/webplots/da/SST/SST_{date}.png"
 ROMS_CREDIT = ("UCSC Ocean Modeling and Data Assimilation group (C. A. Edwards, A. M. Moore), "
                "oceanmodeling.ucsc.edu, CC BY 3.0")
@@ -92,6 +96,8 @@ SUBCROPS = [
 TRIMS = [
     ("moana_pc_loadings.png", (0.0, 0.085, 1.0, 1.0)),      # drop the file-name suptitle
     ("roms_sst_nowcast.png", (0.0, 0.085, 1.0, 0.935)),    # drop the title and footer lines
+    ("pab_fit_5906450_140.png", (0.0, 0.04, 1.0, 0.49)),   # keep the R_rs panel, drop the fit-id title
+    ("pab_fit_5907252_5.png", (0.0, 0.04, 1.0, 0.49)),
 ]
 # telescope montage: (shape id, label)
 TELESCOPES = [(4, 140, "MeerKAT"), (4, 141, "CHIME"), (4, 145, "ASKAP"), (14, 276, "Parkes")]   # (slide, shape id, name)
@@ -118,6 +124,16 @@ COPIES = [
      "figure made for talks/wmko_2026", "What is in the water?; PFTs"),
     ("moana_pc_loadings.png", Path("~/Oceanography/python/EPFT-UP/reports/figures/moana_pc_loadings.png").expanduser(),
      "MOANA PCA basis (Lange et al. 2020) re-derived in EPFT-UP (J. X. Prochaska & Claude, 2026)", "PCA of the spectrum"),
+    # PAB v2 representative fits (B7): the median sat/float b_bp ratio, and the most productive tercile
+    ("pab_fit_5906450_140.png",
+     PAB_FIGS / "5906450_140_PACE_OCI.20250829T213217.L2.OC_AOP.V3_2.nc_1210_1019_ExpBPow_v2.0_fit.png",
+     f"{PAB_CREDIT}: float 5906450 cycle 140, 29 Aug 2025, the median sat/float b_bp matchup", "PACE"),
+    ("pab_fit_5907252_5.png",
+     PAB_FIGS / "5907252_5_PACE_OCI.20260413T173323.L2.OC_AOP.V3_2.nc_573_956_ExpBPow_v2.0_fit.png",
+     f"{PAB_CREDIT}: float 5907252 cycle 5, 13 Apr 2026, the most productive tercile (Chl 0.32 mg m⁻³)", "Strong systematics"),
+    ("pab_bbp_scatter.png", PAB_FIGS.parent / "comparisons" / "bbp_scatter.png",
+     "PACE/BING vs. BGC-Argo float b_bp(700 nm), 15,274 PAB v2 matchups (A. James, J. X. Prochaska et al. 2026, "
+     "in prep.; PAB report site, built 2026-10-18)", "Poorly measured errors"),
 ]
 
 

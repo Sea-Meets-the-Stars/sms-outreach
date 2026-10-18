@@ -46,5 +46,8 @@ Written by `scripts/harvest_assets.py`; the full record is `sources.json`.  Cred
 | kramer_fig6_results.png | cropped | Fig. 6 (A, B) of Kramer, Siegel, Maritorena & Catlett 2022, Remote Sens. Environ. 270, 112879, doi:10.1016/j.rse.2021.112879 (CC BY) |
 | pace_moana.png | copied | NASA PACE OCI, MOANA picophytoplankton (Lange et al. 2020), L3 mapped daily, 1 July 2025 (NASA/GSFC/OBPG); figure made for talks/wmko_2026 |
 | moana_pc_loadings.png | copied | MOANA PCA basis (Lange et al. 2020) re-derived in EPFT-UP (J. X. Prochaska & Claude, 2026) |
+| pab_fit_5906450_140.png | copied | BING 2.0 fit to a real PACE OCI (L2 AOP V3.2) spectrum at a BGC-Argo float, PAB v2 representative fit (A. James, J. X. Prochaska et al. 2026, in prep.; PAB report site): float 5906450 cycle 140, 29 Aug 2025, the median sat/float b_bp matchup |
+| pab_fit_5907252_5.png | copied | BING 2.0 fit to a real PACE OCI (L2 AOP V3.2) spectrum at a BGC-Argo float, PAB v2 representative fit (A. James, J. X. Prochaska et al. 2026, in prep.; PAB report site): float 5907252 cycle 5, 13 Apr 2026, the most productive tercile (Chl 0.32 mg m⁻³) |
+| pab_bbp_scatter.png | copied | PACE/BING vs. BGC-Argo float b_bp(700 nm), 15,274 PAB v2 matchups (A. James, J. X. Prochaska et al. 2026, in prep.; PAB report site, built 2026-10-18) |
 
-Generated here (see `sources.json`): amortized_schematic.png, bing_cost.png, cugn_lines.png, eq_bic.png, eq_dm_sum.png, eq_gordon.png, eq_iop_model.png, eq_lambda.png, eq_lnL_frb.png, eq_lnL_gauss.png, eq_path.png, frb_sketch.png, ocean_sketch.png
+Generated here (see `sources.json`): amortized_schematic.png, bing_cost.png, cugn_lines.png, eq_bic.png, eq_dm_sum.png, eq_gordon.png, eq_iop_model.png, eq_lambda.png, eq_lnL_frb.png, eq_lnL_gauss.png, eq_path.png, frb_sketch.png, ocean_sketch.png, pab_fit_median.png, pab_fit_productive.png, pigment_absorption.png

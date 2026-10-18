@@ -147,3 +147,44 @@ def test_credits_in_notes(tmp_path):
     problems, warnings, _ = qa.check(out, credits_in_notes=True)
     assert problems == [] and warnings == []
     assert any("without a source" in w for w in qa.check(out)[1])
+
+
+def test_markup_runs():
+    """`X_{y}` / `X^{y}` split into baseline-shifted runs; the width estimate
+    ignores the markup."""
+    from sms_outreach.slides.deck import runs_of
+    assert runs_of("H_{0} and 10^{8}") == [("H", None), ("0", "sub"), (" and 10", None), ("8", "sup")]
+    assert runs_of("plain") == [("plain", None)]
+    assert L.plain("R_{rs}(λ)") == "Rrs(λ)"
+    assert L.text_width("R_{rs}", 20) == L.text_width("Rrs", 20)
+
+
+@pytest.mark.skipif(not KRAW.exists(), reason="Kraw master not available")
+def test_footer_and_subscripts(tmp_path):
+    """FOOTER replaces the master's logo with a text box and covers the title
+    band; markup becomes subscript runs in titles and bullets."""
+    from sms_outreach.slides.deck import LOGO_TITLE, build_deck
+
+    slides = [
+        Slide("Test deck", kind=TITLE, author="Somewhere"),
+        Slide("H_{0} and the DM cliff", bullets=["DM_{cosmic} at 10^{8}"], notes="n"),
+    ]
+    prs, _ = build_deck(KRAW, slides, [tmp_path], cache_dir=tmp_path / "cache", footer="UCSC Stats 2026-10-19")
+    masters = list(prs.slide_masters)
+    assert not any(LOGO_TITLE in (sh._element.find(".//{http://schemas.openxmlformats.org/presentationml/2006/main}cNvPr").get("title") or "")
+                   for m in masters for sh in m.shapes)
+    footers = [sh for m in masters for sh in m.shapes if sh.name == "Footer"]
+    assert len(footers) == 1 and footers[0].text_frame.text == "UCSC Stats 2026-10-19"
+    assert sum(sh.name == "Footer" for sh in prs.slides[0].shapes) == 2
+    title = next(sh for sh in prs.slides[1].shapes if sh.name == "Title")
+    runs = [r for p in title.text_frame.paragraphs for r in p.runs]
+    assert [r.text for r in runs] == ["H", "0", " and the DM cliff"]
+    assert runs[1].font._rPr.get("baseline") == "-25000" and runs[0].font._rPr.get("baseline") is None
+    assert title.text_frame.text == "H0 and the DM cliff"
+    bullets = next(sh for sh in prs.slides[1].shapes if sh.name == "Bullets")
+    brs = [r for p in bullets.text_frame.paragraphs for r in p.runs]
+    assert [r.font._rPr.get("baseline") for r in brs] == [None, "-25000", None, "30000"]
+    out = tmp_path / "t.pptx"
+    prs.save(out)
+    problems, _, _ = qa.check(out, credits_in_notes=True)
+    assert problems == []

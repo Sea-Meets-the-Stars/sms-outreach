@@ -154,9 +154,51 @@ my responses and act accordingly.  I will then view the slide deck and suggest
 more edits in #7.  Use Fable if you can.  Log your work.
 
 7. **Edits on the current deck.**  Make these edits and produce a new deck (rebuild with `--png --strict`, copy to Drive, log):
-   - (list the edits here)
+   - Slide 5: Title it "Outline for today" instead of "Goals for today"
+   - Slide 6: Name it "Part I: Population modeling of Fast Radio Bursts (FRBs)"
+   - Everywhere:  Hubble's Constant should be H₀ with a subscript 0 not H0
+   - Slide 15:  The "[" and "]" in the first Sum are too small.  Make them much larger
+   - Where possible throughout, use subscripts instead of e.g. X_y
+   - The stats department won't know what "emcee" is.  Describe it as an Affine invariant sampler.
+   - Slide 21: Move things around so the "Forward problem" schematic is much larger on the slide
+   - Slide 22: Most of the bullets on this slide aren't necessary for this audience.
+   Reduce them
+   - Slide 23: The atmospheric correction has been improved, but the point about correlated errors remains very valid.  It would be good to update the figure shown here and in Slide 22 with one of the fits from the PAB repository.  Please try to do so.
+   There are some new, representative fits in the PAB repository.  See the Logs in `report_improvements.md` file for details.
+   - Slide 24:  Same point as Slide 23.  This Slide might be removed.  We shall see.
+   - Slide 25:  The equations on the right are difficult to read.  In part because they cross multiple lines.  See if you can improve
+   - All slides -- Use "UCSC Stats 2026-10-19" as the footer on all slides instead of "UCSC Science"
+   - Slides 27+28 -- The point about an "infinite number of templates" is that biology is 
+   sufficiently complex that nearly any `a` and `bb` is possible.  Please modify.  You should include one of the figures showing the absorption by various pigments.
+
+If you have any questions or concerns about these edits, put them in the Q&A/Edits section.
+Use Fable if you can.  Log your work.
 
 ## Q&A
+
+### Edits
+
+*Build #7 (2026-10-18).  Blank = accept as built.*
+
+1. **Slide 24 ("Poorly measured errors").**  Kept, rebuilt with the new PAB figures (the median match-up fit, χ²_ν = 0.20, and the satellite-vs-float b_bp scatter over 15,274 match-ups).  Its point now overlaps slide 23; say "drop" and it goes to backup.
+
+   Answer:
+
+2. **The new fits change the message of slides 22–24.**  The old AWOC figure had χ²_ν = 1.44 with residuals of many sigma beyond 600 nm.  The two PAB v2 representative fits have χ²_ν = 0.20 and 0.32: the supplied error bars are about twice too large, while the residuals are still coherent over tens of nm (400–480, 500–520, 540–580, 680–700 nm on the productive spectrum).  The slides now say "correlated errors, and error bars that are too large".  OK, or would you rather pick another of the eight representative fits (3901586/105, the 95th-percentile match-up, has large coherent residuals but is a poor fit)?
+
+   Answer:
+
+3. **Footer.**  Content slides: the master's "UC SANTA CRUZ | Science" logo image is replaced by the text "UCSC Stats 2026-10-19" (Roboto bold 11 pt, UCSC blue) in the same place.  Title slide: the band keeps the UC SANTA CRUZ wordmark and reads "UC SANTA CRUZ | Stats 2026-10-19" (the word "Science" is covered).  Check after the Google Slides import that the master text box came through; if not, say so and I will put the footer on each slide instead.
+
+   Answer:
+
+4. **Subscripts in Google Slides.**  Subscripts and superscripts are real baseline-shifted runs (H₀, DM_cosmic, R_rs, χ²_ν, 10⁸ …).  LibreOffice renders them; please confirm the import keeps them.  The README (`talks/ucsc_stats_2026/README.md` and the Google Doc) still writes "H0" and "E_max"; I left it alone since the Doc is already made.  Want it changed too?
+
+   Answer:
+
+5. **Slides 27–28 wording.**  27 is now "Biology makes almost any a(λ) possible" with seven Bricaud et al. 2004 pigment-specific absorption spectra and three qualitative bullets (pigments, packaging and cell size, particles); 28 is "…so very different models fit equally well" with the R_rs and a_ph panels of the three-model figure (the b_b panel moved to backup).  Any number or claim you would add to 27 (e.g. how many pigments, the package-effect size)?
+
+   Answer:
 
 ### Talk
 
@@ -756,3 +798,32 @@ You filled in the round-2 answers (Q27–Q38) that had been blank when Builds #1
 *Q34.*  All seven equations on the deck are new `dejavusans` renders; no equation image was lifted from the two decks, so there was nothing to re-render and nothing to swap.  If you would rather see the original LaTeX images for the Gordon relation and the Lee+1999 IOP model (AWOC slides 6, 7, 13) or the DM integral (NU slide 15), say so in #7 and they can be lifted in place of `eq_gordon.png`, `eq_iop_model.png` and the top line of `eq_dm_sum.png`.
 
 *Current deck.*  `talks/ucsc_stats_2026/slides/UCSC_Stats_2026.pptx` (B5: 52 slides, strict QA passed, 3 placeholders) and its PDF are in `~/Google Drive/My Drive/Oceanography/Talks/2026/UCSC_Stats/`.  #7 is ready for your edit list.
+
+### 2026-10-18 (Build #7: edits on the current deck)
+
+All thirteen edits made; rebuilt with `--png --strict` (53 slides: 42 main + 11 backup, QA "ALL CHECKS PASSED", 3 placeholders, all yours), every changed page looked at, the `.pptx` and PDF copied to `~/Google Drive/My Drive/Oceanography/Talks/2026/UCSC_Stats/`.  16 tests pass (two new).  Five questions in Q&A/Edits.  No git commands were run.
+
+*Builder (`sms_outreach/slides/`).*
+- **Subscripts.**  Text fields accept `X_{y}` and `X^{y}`; `deck.py` turns them into baseline-shifted runs (`runs_of`, in `add_text` and in the template-copied title and sub-line boxes), `layout.plain` strips the markup for the width estimates, and notes and placeholder labels are written plain.  Test `test_markup_runs`.
+- **Footer.**  New plan flag `FOOTER` (`build.py` → `build_deck(footer=…)` → `deck.set_footer`): the master's "UC SANTA CRUZ | Science" logo picture (cNvPr title "Science Logo…") is removed and a Roboto text box put in its place; on the title slide a band-blue rectangle covers the word "Science" and the text is written in white next to the wordmark.  Test `test_footer_and_subscripts`.
+
+*Plan (`talks/ucsc_stats_2026/slides/plan.py`).*
+- Slide 5 "Outline for today"; slide 6 "Part I: Population modeling of Fast Radio Bursts (FRBs)" (two lines on the divider).
+- H₀ everywhere: `H_{0}` on slides 7, 18 and backup 45; H₀ in every note.  Subscripts throughout: DM_{cosmic}, DM_{host}, λ_{s}, z_{i}, Λ_{s}, E_{max}, n_{sfr}, R_{rs}, b_{b}, b_{bp}, a_{ph}, S_{dg}, χ²_{ν}, 10^{8}.
+- emcee is introduced as "an affine-invariant sampler (emcee)" on slides 16 and 29 (sub-lines) and in the notes of 16, 29 and 30 (Goodman & Weare 2010).
+- Slide 15: the likelihood equation is re-rendered with `\left[ … \right.` / `\left. … \right]`, so both brackets span the full height of their lines (`fig_equations.py`).
+- Slide 21: the forward-problem sketch is now the only figure (about twice its former size) with four bullets beside it; the PACE MOANA map comes off (it is still slide 36).
+- Slide 22: two bullets instead of four; new figure `pab_fit_median.png`.
+- Slide 23: new figure `pab_fit_productive.png`; bullets and notes rewritten around the correlated residuals and χ²_ν = 0.32 (the atmospheric correction's improvement is acknowledged).
+- Slide 24: kept; pair `pab_fit_median.png` | `pab_bbp_scatter.png` (PAB v2: n = 15,274, median ratio 1.15, ρ = 0.41, RMS 0.65 dex); the old "many sigma beyond 600 nm" claim is gone.  Flagged in Q&A as droppable.
+- Slide 25: `eq_iop_model.png` re-rendered one equation per line (a = a_w + a_dg + a_ph, then a_dg, a_ph with the template a*_ph, then b_b).
+- Slides 27–28: 27 "Biology makes almost any a(λ) possible" with the new `pigment_absorption.png` (seven Bricaud et al. 2004 in vivo pigment-specific spectra, `fig_pigments.py` on the `ocpy` data) and three bullets; 28 "…so very different models fit equally well" pairs the R_rs and a_ph panels of the three-model figure; the b_b panel is a new backup slide.
+- `FOOTER = "UCSC Stats 2026-10-19"`.
+
+*PAB figures (`scripts/fig_pab_fit.py`, new).*  The `report_improvements.md` E5/E6 logs name eight representative v2 fits; their PNGs in `PAB/report_site/_static/figures/` have no residual panel, so the two fits used here (5906450/140, the median sat/float b_bp match-up; 5907252/5, the most productive tercile) were reconstructed with PAB's own `pab.plotting.fit_fig.reconstruct_fit` (BING `robust_hybrid` forward model, geometry and RT configuration from the v2 `fits` row) and drawn with the supplied σ and the residuals in σ.  Inputs fetched into the session scratchpad, not the repo: the public v2 database (`https://s3-west.nrp-nautilus.io/pab/v2/pab.db`, 217 MB) and the two chain NPZs from the Drive backup (`rclone copy AIOcean:PAB/v2/fit_chains/ …`, read-only).  Both fits: 136 bands, χ²_ν = 0.20 and 0.32 at the posterior median with k = 6.  `harvest_assets.py` also copies the PAB report's own PNGs (`pab_fit_5906450_140.png`, `pab_fit_5907252_5.png`, trimmed to the R_rs panel, as spares) and `pab_bbp_scatter.png`; `sources.json` has 63 entries.
+
+*Checked on the pages.*  Slides 1, 5–7, 9, 15, 16, 18, 21–29, 31 and 45: no overflow, no wrapped sub-line, one title shortened after the first build (28 wrapped to two lines).  LibreOffice still renders the Roboto text in a serif fallback.
+
+*Placeholders.*  Slides 2, 3, 4: `bg_physics.png`, `bg_astronomy.png`, `bg_ocean.png` (yours).
+
+*Left for you* (also in `run_sheet.md`): the three background figures; humor and animations; the README Doc sharing; the photo credits; whether slide 24 stays; the five Q&A/Edits answers.

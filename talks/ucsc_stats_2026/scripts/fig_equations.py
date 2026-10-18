@@ -215,11 +215,13 @@ def eq_lambda():
 def eq_lnL_frb():
     """Extended Poisson likelihood for the FRB population model."""
     st = Stack(SIDE, height=5.5)
-    st.add(r"$\ln L(\theta) = \sum_s [\ \sum_{i\,\in\,\mathrm{localized}} "
-           r"\ln\dfrac{\lambda_s(z_i, \mathrm{DM}_i)}{\Lambda_s}$", size=EQ_SMALL,
+    # the bracket spans two lines: \left[ ... \right. on the first,
+    # \left. ... \right] on the second, so both delimiters are full height
+    st.add(r"$\ln L(\theta) = \sum_s \left[\ \sum_{i\,\in\,\mathrm{localized}} "
+           r"\ln\dfrac{\lambda_s(z_i, \mathrm{DM}_i)}{\Lambda_s} \right.$", size=EQ_SMALL,
            ha="left", gap=0.08)
-    st.add(r"$+ \sum_{j\,\in\,\mathrm{DM\ only}} "
-           r"\ln\dfrac{\int \lambda_s(z, \mathrm{DM}_j)\,dz}{\Lambda_s}\ ]$",
+    st.add(r"$\left. + \sum_{j\,\in\,\mathrm{DM\ only}} "
+           r"\ln\dfrac{\int \lambda_s(z, \mathrm{DM}_j)\,dz}{\Lambda_s}\ \right]$",
            size=EQ_SMALL, ha="left", x=1.35, gap=0.10)
     st.add(r"$+ \sum_s \ln \mathrm{Poisson}(N_s\,|\,\Lambda_s) "
            r"+ \sum_{\rm bursts} \ln p(S/N)$", size=EQ_SMALL, ha="left", x=0.6,
@@ -263,12 +265,16 @@ def eq_gordon():
 
 def eq_iop_model():
     """Nested IOP parameterization for a(lambda) and b_b(lambda)."""
-    st = Stack(HALF)
-    st.add(r"$a(\lambda) = a_w(\lambda) + A_{dg}\exp[-S_{dg}(\lambda - 400)]$",
-           size=EQ_SMALL, ha="left", gap=0.06)
-    st.add(r"$+\ A_{ph}\,a_{ph}(\lambda)$", size=EQ_SMALL, ha="right", gap=0.12)
+    # one equation per line (B7): the sum of parts first, then each part
+    st = Stack(HALF, height=5.0)
+    st.add(r"$a(\lambda) = a_w(\lambda) + a_{dg}(\lambda) + a_{ph}(\lambda)$",
+           size=EQ_SMALL, ha="left", gap=0.10)
+    st.add(r"$a_{dg}(\lambda) = A_{dg}\,e^{-S_{dg}(\lambda - 400)}$",
+           size=EQ_SMALL, ha="left", x=0.4, gap=0.08)
+    st.add(r"$a_{ph}(\lambda) = A_{ph}\,a^{*}_{ph}(\lambda)$" + "   (a template)",
+           size=EQ_SMALL, ha="left", x=0.4, gap=0.16)
     st.add(r"$b_b(\lambda) = b_{b,w}(\lambda) + B_{nw}\,(\lambda/600)^{\beta}$",
-           size=EQ_SMALL, ha="left", gap=0.14)
+           size=EQ_SMALL, ha="left", gap=0.16)
     st.add("water terms known;  2–5 free parameters:", size=LABEL, ha="left",
            gap=0.03)
     st.add(r"$A_{dg},\ S_{dg},\ A_{ph},\ B_{nw},\ \beta$", size=LABEL, ha="left",

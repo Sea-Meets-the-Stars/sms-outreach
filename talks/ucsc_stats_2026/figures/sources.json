@@ -467,5 +467,50 @@
     "source": "Sketch: J. X. Prochaska & Claude; Loisel et al. 2023 spectrum, PACE noise (panel)",
     "origin": "lifted",
     "crop_of": "ocean_sketch.png"
+  },
+  "pab_fit_5906450_140.png": {
+    "slide": "PACE",
+    "source": "BING 2.0 fit to a real PACE OCI (L2 AOP V3.2) spectrum at a BGC-Argo float, PAB v2 representative fit (A. James, J. X. Prochaska et al. 2026, in prep.; PAB report site): float 5906450 cycle 140, 29 Aug 2025, the median sat/float b_bp matchup",
+    "origin": "copied",
+    "copied_from": "/Users/xavier/Oceanography/python/PAB/report_site/_static/figures/5906450_140_PACE_OCI.20250829T213217.L2.OC_AOP.V3_2.nc_1210_1019_ExpBPow_v2.0_fit.png",
+    "trimmed": [
+      0.0,
+      0.04,
+      1.0,
+      0.49
+    ]
+  },
+  "pab_fit_5907252_5.png": {
+    "slide": "Strong systematics",
+    "source": "BING 2.0 fit to a real PACE OCI (L2 AOP V3.2) spectrum at a BGC-Argo float, PAB v2 representative fit (A. James, J. X. Prochaska et al. 2026, in prep.; PAB report site): float 5907252 cycle 5, 13 Apr 2026, the most productive tercile (Chl 0.32 mg m⁻³)",
+    "origin": "copied",
+    "copied_from": "/Users/xavier/Oceanography/python/PAB/report_site/_static/figures/5907252_5_PACE_OCI.20260413T173323.L2.OC_AOP.V3_2.nc_573_956_ExpBPow_v2.0_fit.png",
+    "trimmed": [
+      0.0,
+      0.04,
+      1.0,
+      0.49
+    ]
+  },
+  "pigment_absorption.png": {
+    "slide": "Biology makes almost any a(λ) possible",
+    "source": "Pigment-specific absorption spectra from Bricaud et al. 2004, JGR 109, C11010 (via ocpy); drawn by J. X. Prochaska & Claude",
+    "origin": "generated"
+  },
+  "pab_fit_median.png": {
+    "slide": "PACE",
+    "source": "BING 2.0 fit to a real PACE OCI (L2 AOP V3.2) spectrum at a BGC-Argo float, PAB v2 representative fit (A. James, J. X. Prochaska et al. 2026, in prep.), reconstructed with pab.plotting.fit_fig and drawn by J. X. Prochaska & Claude: float 5906450 cycle 140, 29 Aug 2025: the median sat/float b_bp matchup",
+    "origin": "generated"
+  },
+  "pab_fit_productive.png": {
+    "slide": "Strong systematics",
+    "source": "BING 2.0 fit to a real PACE OCI (L2 AOP V3.2) spectrum at a BGC-Argo float, PAB v2 representative fit (A. James, J. X. Prochaska et al. 2026, in prep.), reconstructed with pab.plotting.fit_fig and drawn by J. X. Prochaska & Claude: float 5907252 cycle 5, 13 Apr 2026: the most productive tercile (Chl 0.32 mg m⁻³)",
+    "origin": "generated"
+  },
+  "pab_bbp_scatter.png": {
+    "slide": "Poorly measured errors",
+    "source": "PACE/BING vs. BGC-Argo float b_bp(700 nm), 15,274 PAB v2 matchups (A. James, J. X. Prochaska et al. 2026, in prep.; PAB report site, built 2026-10-18)",
+    "origin": "copied",
+    "copied_from": "/Users/xavier/Oceanography/python/PAB/report_site/_static/comparisons/bbp_scatter.png"
   }
 }

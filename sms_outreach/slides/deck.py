@@ -11,20 +11,29 @@ slide 1 (title + sea|sky hero image) is kept as the title slide; every other
 Kraw slide is dropped, which also drops its media.
 
 Shape names written here (used by `qa`):
-    Title, Sub-line, Figure, Caption, Bullets, Source, PLACEHOLDER
+    Title, Sub-line, Figure, Caption, Bullets, Source, PLACEHOLDER, Footer
+
+Text markup: `H_{0}` renders "0" as a subscript run and `10^{8}` renders
+"8" as a superscript run (titles, sub-lines, bullets, captions); the width
+estimates in `layout` strip the markup.  A plan may set FOOTER (e.g. "UCSC
+Stats 2026-10-19"): the master's "UC SANTA CRUZ | Science" logo is replaced
+by that text and, on the title slide, the word "Science" in the top band is
+covered by it.
 """
 import copy
 import hashlib
 import json
+import re
 import tempfile
 from pathlib import Path
 
+from lxml import etree
 from PIL import Image, ImageOps
 from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
-from pptx.util import Inches, Pt
+from pptx.util import Emu, Inches, Pt
 
 from . import layout as L
 from .spec import CONTENT, DIVIDER, IMAGE, TITLE
@@ -47,8 +56,31 @@ MAX_BYTES = 600_000
 A = "{http://schemas.openxmlformats.org/drawingml/2006/main}"
 P = "{http://schemas.openxmlformats.org/presentationml/2006/main}"
 
+MARKUP = re.compile(r"([_^])\{([^}]*)\}")
+BASELINE = {"sub": "-25000", "sup": "30000"}        # OOXML baseline offsets (1/1000 %)
+LOGO_TITLE = "Science Logo"                         # cNvPr title of the master's footer logo
+FOOTER_BLUE = RGBColor(0x00, 0x3C, 0x6C)             # the Kraw band colour (sampled from the master)
+FOOTER_PT, FOOTER_W = 11, 3.2
+TITLE_BAND_COVER = (2.12, 0.33, 2.9, 0.47)          # title slide: box over the word "Science"
+TITLE_BAND_TEXT = (2.17, 0.40, 2.8, 0.33)
+TITLE_BAND_PT = 15
+
 
 # ----------------------------------------------------------------- helpers
+def runs_of(text):
+    """Created by JXP and Claude. Split `text` on the subscript / superscript
+    markup: [(piece, kind)] with kind None, 'sub' or 'sup'."""
+    out, pos = [], 0
+    for m in MARKUP.finditer(text):
+        if m.start() > pos:
+            out.append((text[pos:m.start()], None))
+        out.append((m.group(2), "sub" if m.group(1) == "_" else "sup"))
+        pos = m.end()
+    if pos < len(text):
+        out.append((text[pos:], None))
+    return out or [("", None)]
+
+
 def find_shape(slide, text):
     """Created by JXP and Claude. The shape on `slide` whose text is `text`."""
     for sh in slide.shapes:
@@ -66,17 +98,36 @@ def set_size(sp_element, pt):
 
 def set_text(sp_element, text):
     """Created by JXP and Claude. Replace the text of a text-box element,
-    keeping the first run's formatting."""
+    keeping the first run's formatting; `text` may carry the sub / sup
+    markup, which becomes baseline-shifted runs."""
     txBody = sp_element.find(f".//{P}txBody")
     paras = txBody.findall(f"{A}p")
     for p in paras[1:]:
         txBody.remove(p)
-    runs = paras[0].findall(f"{A}r")
+    para = paras[0]
+    runs = para.findall(f"{A}r")
     for r in runs[1:]:
-        paras[0].remove(r)
-    for br in paras[0].findall(f"{A}br"):
-        paras[0].remove(br)
-    runs[0].find(f"{A}t").text = text
+        para.remove(r)
+    for br in para.findall(f"{A}br"):
+        para.remove(br)
+    run0 = runs[0]
+    para.remove(run0)
+    end = para.find(f"{A}endParaRPr")
+    for piece, kind in runs_of(text):
+        r = copy.deepcopy(run0)
+        r.find(f"{A}t").text = piece
+        rPr = r.find(f"{A}rPr")
+        if rPr is None:
+            rPr = etree.Element(f"{A}rPr")
+            r.insert(0, rPr)
+        if kind:
+            rPr.set("baseline", BASELINE[kind])
+        elif "baseline" in rPr.attrib:
+            del rPr.attrib["baseline"]
+        if end is not None:
+            end.addprevious(r)
+        else:
+            para.append(r)
 
 
 def next_shape_id(slide):
@@ -181,14 +232,44 @@ def add_text(slide, text, box, pt, color=INK, name="Text", align=None, bold=Fals
         para = tf.paragraphs[0] if k == 0 else tf.add_paragraph()
         if align:
             para.alignment = align
-        run = para.add_run()
-        run.text = line
-        run.font.size = Pt(pt)
-        run.font.name = "Roboto"
-        run.font.bold = bold
-        run.font.color.rgb = color
+        for piece, kind in runs_of(line):
+            run = para.add_run()
+            run.text = piece
+            run.font.size = Pt(pt)
+            run.font.name = "Roboto"
+            run.font.bold = bold
+            run.font.color.rgb = color
+            if kind:
+                run.font._rPr.set("baseline", BASELINE[kind])
     tb.name = name
     return tb
+
+
+def set_footer(prs, text):
+    """Created by JXP and Claude. Replace the master's footer logo
+    ("UC SANTA CRUZ | Science") with `text` in Roboto, and cover the word
+    "Science" in the title slide's top band with the same text."""
+    title_slide = prs.slides[0]
+    for master in prs.slide_masters:
+        for pic in list(master.shapes):
+            cnv = pic._element.find(f".//{P}cNvPr")
+            if cnv is not None and LOGO_TITLE in (cnv.get("title") or ""):
+                box = (Emu(pic.left).inches, Emu(pic.top).inches, FOOTER_W, Emu(pic.height).inches)
+                pic._element.getparent().remove(pic._element)
+                tb = add_text(title_slide, text, box, FOOTER_PT, FOOTER_BLUE, "Footer", bold=True,
+                              anchor=MSO_ANCHOR.MIDDLE)
+                el = tb._element
+                el.getparent().remove(el)
+                master.shapes._spTree.append(el)
+    x, y, w, h = TITLE_BAND_COVER
+    cover = title_slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x), Inches(y), Inches(w), Inches(h))
+    cover.fill.solid()
+    cover.fill.fore_color.rgb = FOOTER_BLUE
+    cover.line.fill.background()
+    cover.name = "Footer"
+    band = text[5:] if text.startswith("UCSC ") else text     # the band keeps the UC SANTA CRUZ wordmark
+    add_text(title_slide, band, TITLE_BAND_TEXT, TITLE_BAND_PT, RGBColor(0xFF, 0xFF, 0xFF), "Footer",
+             bold=True, anchor=MSO_ANCHOR.MIDDLE)
 
 
 def add_placeholder(slide, box, label):
@@ -204,7 +285,7 @@ def add_placeholder(slide, box, label):
     tf = shp.text_frame
     tf.word_wrap = True
     tf.vertical_anchor = MSO_ANCHOR.MIDDLE
-    tf.text = f"PLACEHOLDER\n{label}"
+    tf.text = f"PLACEHOLDER\n{L.plain(label)}"
     for k, para in enumerate(tf.paragraphs):
         para.alignment = PP_ALIGN.CENTER
         for run in para.runs:
@@ -253,9 +334,9 @@ def notes_text(spec, missing, sources=None):
     """Created by JXP and Claude. Speaker notes: the plan's notes, the source
     line, each figure's full source/credit from sources.json, and any missing
     figures.  Empty when the plan gives no notes (so `qa` can flag it)."""
-    parts = [spec.notes]
+    parts = [L.plain(spec.notes)]
     if spec.source:
-        parts.append(f"Source: {spec.source}")
+        parts.append(f"Source: {L.plain(spec.source)}")
     for fig in spec.figures:
         entry = (sources or {}).get(Path(fig.path).name)
         if entry:
@@ -310,7 +391,7 @@ def fill_content_slide(slide, spec, fig_dirs, cache_dir):
     return [f.path for f, p in zip(spec.figures, paths) if p is None]
 
 
-def build_deck(template, slides, fig_dirs, cache_dir=None, credits_in_notes=False):
+def build_deck(template, slides, fig_dirs, cache_dir=None, credits_in_notes=False, footer=None):
     """Created by JXP and Claude. Build the deck in memory.
 
     Inputs
@@ -321,6 +402,8 @@ def build_deck(template, slides, fig_dirs, cache_dir=None, credits_in_notes=Fals
     cache_dir : where downsampled photo copies go (default: system temp)
     credits_in_notes : if True, a slide's `source` goes into the speaker
         notes only (no Source box is drawn on the slide)
+    footer : if set, replaces the master's "UC SANTA CRUZ | Science" logo
+        (and the word "Science" in the title slide's band) with this text
 
     Output
     ------
@@ -345,6 +428,8 @@ def build_deck(template, slides, fig_dirs, cache_dir=None, credits_in_notes=Fals
     first = prs.slides[0]
     fill_title_slide(first, slides[0])
     first.notes_slide.notes_text_frame.text = notes_text(slides[0], [], sources)
+    if footer:
+        set_footer(prs, footer)
     report.append((1, slides[0].title, "title slide"))
 
     for n, spec in enumerate(slides[1:], start=2):

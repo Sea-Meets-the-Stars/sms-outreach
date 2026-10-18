@@ -23,7 +23,7 @@ from .deck import build_deck
 def load_plan(path):
     """Created by JXP and Claude. Execute a plan file and return its namespace
     (TEMPLATE, FIG_DIRS, OUTPUT, SLIDES, optional MAX_SLIDES, CACHE_DIR,
-    CREDITS_IN_NOTES)."""
+    CREDITS_IN_NOTES, FOOTER)."""
     ns = runpy.run_path(str(path))
     for key in ("TEMPLATE", "FIG_DIRS", "OUTPUT", "SLIDES"):
         if key not in ns:
@@ -60,7 +60,7 @@ def main(argv=None):
     out = Path(args.output or plan["OUTPUT"]).expanduser()
     credits_in_notes = bool(plan.get("CREDITS_IN_NOTES", False))
     prs, report = build_deck(plan["TEMPLATE"], plan["SLIDES"], plan["FIG_DIRS"], plan.get("CACHE_DIR"),
-                             credits_in_notes=credits_in_notes)
+                             credits_in_notes=credits_in_notes, footer=plan.get("FOOTER"))
     for n, title, what in report:
         print(f"slide {n:2d}: {title[:48]:48s} {what}")
     out.parent.mkdir(parents=True, exist_ok=True)
